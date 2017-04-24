@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.tzadmin.tzsk_winows.MeasActivity">
+
+    <item
+        android:id="@+id/btn_setting"
+        android:title="@string/btn_meas_geo"
+        android:icon="@android:drawable/ic_menu_manage"
+        app:showAsAction="always" />
+
+</menu>

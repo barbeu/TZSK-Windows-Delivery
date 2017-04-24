@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">ТЗСК Доставка</string>
+
+    <!--Login Activity-->
+    <string name="title_activity_login">Авторизация</string>
+    <string name="btn_login">Войти</string>
+    <string name="tb_login">Логин</string>
+    <string name="tb_password">Пароль</string>
+
+    <!--Main Activity-->
+    <string name="btn_main_exit">Выйти</string>
+    <string name="btn_main_reload">Обновить</string>
+
+    <!--Meas Activity-->
+    <string name="MeasActivity_name">ТЗСК</string>
+    <string name="btn_meas_send">Отправить</string>
+    <string name="btn_meas_call">Позвонить</string>
+    <string name="btn_meas_geo">Карта</string>
+    <string name="btn_meas_close">Назад</string>
+    <string name="btn_meas_camera">Камера</string>
+
+    <!--Setting Activity-->
+    <string name="SettingActivity_name">ТЗСК Настройка</string>
+    <string name="btn_setting_reconnect">Выполнить Переподключение</string>
+    <string name="tb_setting_server">Сервер</string>
+    <string name="tb_setting_port">Порт</string>
+
+</resources>
