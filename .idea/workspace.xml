@@ -16,63 +16,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf3ca160-1f43-483e-bb28-7a29e4e087b3" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-21-14-59-03-714.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-21-14-59-25-475.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-21-15-07-01-594.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-22-12-34-23-653.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-22-12-34-50-232.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-10-30-55-395.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-10-31-18-544.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-09-17-610.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-21-46-089.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-24-44-498.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-26-30-222.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-28-15-296.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-29-44-761.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-31-28-564.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-34-39-506.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-11-40-07-166.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-12-17-47-576.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-12-20-56-906.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-12-22-18-181.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-12-24-47-261.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-12-26-14-344.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-12-29-14-997.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-12-31-18-819.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-29-46-076.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-31-50-087.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-34-53-921.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-35-51-431.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-42-56-748.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-44-55-986.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-48-01-414.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-51-24-295.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-56-47-108.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-13-58-58-323.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-14-00-34-887.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-14-05-39-472.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-24-14-07-00-276.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/Tab1Deliveries.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/TabFragments/Tab1Deliveries.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" afterPath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/Database.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/Database.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/Delivery.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/Delivery.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DeliveriesActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DeliveriesActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/JsonModule/JSON.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/JsonModule/JSON.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/helper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/helper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_deliveries.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_deliveries.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_delivery.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_delivery.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/TabFragments/Tab1Deliveries.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/TabFragments/Tab1Deliveries.java" />
     </list>
     <ignored path="TZSK-Windows-Delivery.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -104,16 +57,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="activity_deliveries.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_deliveries.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -130,8 +73,8 @@
       <file leaf-file-name="DeliveriesActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DeliveriesActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-98">
-              <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
+            <state relative-caret-position="316">
+              <caret line="86" column="49" selection-start-line="86" selection-start-column="49" selection-end-line="86" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1562#1563#0" expanded="true" />
@@ -145,8 +88,8 @@
       <file leaf-file-name="DatabaseHelper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="18" column="57" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
+            <state relative-caret-position="460">
+              <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
               <folding>
                 <element signature="e#329#330#0" expanded="true" />
                 <element signature="e#384#385#0" expanded="true" />
@@ -158,8 +101,8 @@
       <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+            <state relative-caret-position="478">
+              <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
               <folding>
                 <element signature="method#insertDeliveries#0;class#Database#0" expanded="false" />
                 <element signature="method#updateDelivery#0;class#Database#0" expanded="false" />
@@ -169,7 +112,29 @@
                 <element signature="method#isUserExist#0;class#Database#0" expanded="false" />
                 <element signature="method#updateUser#0;class#Database#0" expanded="false" />
                 <element signature="method#lastUserLogin#0;class#Database#0" expanded="false" />
+                <element signature="method#insertStatusChanged#0;class#Database#0" expanded="false" />
+                <element signature="method#selectStatusChanged#0;class#Database#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Status.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/Status.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -177,7 +142,7 @@
       <file leaf-file-name="helper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/helper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
+            <state relative-caret-position="1054">
               <caret line="100" column="29" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
               <folding />
             </state>
@@ -197,22 +162,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSONObject.java" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Android/Sdk/sources/android-25/org/json/JSONObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4950">
-              <caret line="207" column="0" selection-start-line="207" selection-start-column="0" selection-end-line="207" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Tab1Deliveries.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/TabFragments/Tab1Deliveries.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="411">
+              <caret line="142" column="53" selection-start-line="142" selection-start-column="53" selection-end-line="142" selection-end-column="53" />
+              <folding>
+                <element signature="method#doInBackground#0;class#downloadDelivary#0;class#Tab1Deliveries#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -220,8 +177,8 @@
       <file leaf-file-name="AsyncTask.java" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Android/Sdk/sources/android-25/android/os/AsyncTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
+            <state relative-caret-position="531">
+              <caret line="306" column="40" selection-start-line="306" selection-start-column="40" selection-end-line="306" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -2073,14 +2030,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_delivery.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_deliveries.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/Delivery.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/Database.java" />
         <option value="$USER_HOME$/Android/Sdk/sources/android-25/org/json/JSONObject.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DeliveriesActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/TabFragments/Tab1Deliveries.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/JsonModule/JSON.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/helper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/TabFragments/Tab1Deliveries.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/Status.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/Database.java" />
       </list>
     </option>
   </component>
@@ -2213,28 +2171,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="TabFragments" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TZSK-Windows-Delivery" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tzsk_windows" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JsonModule" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2723,21 +2659,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="94" />
+      <option name="time" value="109" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_delivery.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -3025,14 +2951,6 @@
         <state theme-name="AppTheme" module-name="app" proportion="0.67" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/Delivery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -3065,14 +2983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-25/android/os/AsyncTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Android/Sdk/sources/android-25/org/json/JSONObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-4950">
@@ -3100,55 +3010,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="18" column="57" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
-          <folding>
-            <element signature="e#329#330#0" expanded="true" />
-            <element signature="e#384#385#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
-          <folding>
-            <element signature="method#insertDeliveries#0;class#Database#0" expanded="false" />
-            <element signature="method#updateDelivery#0;class#Database#0" expanded="false" />
-            <element signature="method#selectDelivery#0;class#Database#0" expanded="false" />
-            <element signature="method#selectDeliveries#0;class#Database#0" expanded="false" />
-            <element signature="method#insertUser#0;class#Database#0" expanded="false" />
-            <element signature="method#isUserExist#0;class#Database#0" expanded="false" />
-            <element signature="method#updateUser#0;class#Database#0" expanded="false" />
-            <element signature="method#lastUserLogin#0;class#Database#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DeliveriesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-98">
-          <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1562#1563#0" expanded="true" />
-            <element signature="e#1595#1596#0" expanded="true" />
-            <element signature="e#2127#2135#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/helper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="100" column="29" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/JsonModule/JSON.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -3160,11 +3021,88 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/TabFragments/Tab1Deliveries.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/helper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="100" column="29" selection-start-line="100" selection-start-column="29" selection-end-line="100" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-25/android/os/AsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="306" column="40" selection-start-line="306" selection-start-column="40" selection-end-line="306" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DeliveriesActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="86" column="49" selection-start-line="86" selection-start-column="49" selection-end-line="86" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1562#1563#0" expanded="true" />
+            <element signature="e#1595#1596#0" expanded="true" />
+            <element signature="e#2127#2135#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
-          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
+          <folding>
+            <element signature="e#329#330#0" expanded="true" />
+            <element signature="e#384#385#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/DatabaseModels/Status.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/DatabaseModule/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+          <folding>
+            <element signature="method#insertDeliveries#0;class#Database#0" expanded="false" />
+            <element signature="method#updateDelivery#0;class#Database#0" expanded="false" />
+            <element signature="method#selectDelivery#0;class#Database#0" expanded="false" />
+            <element signature="method#selectDeliveries#0;class#Database#0" expanded="false" />
+            <element signature="method#insertUser#0;class#Database#0" expanded="false" />
+            <element signature="method#isUserExist#0;class#Database#0" expanded="false" />
+            <element signature="method#updateUser#0;class#Database#0" expanded="false" />
+            <element signature="method#lastUserLogin#0;class#Database#0" expanded="false" />
+            <element signature="method#insertStatusChanged#0;class#Database#0" expanded="false" />
+            <element signature="method#selectStatusChanged#0;class#Database#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/tzadmin/tzsk_windows/TabFragments/Tab1Deliveries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="142" column="53" selection-start-line="142" selection-start-column="53" selection-end-line="142" selection-end-column="53" />
+          <folding>
+            <element signature="method#doInBackground#0;class#downloadDelivary#0;class#Tab1Deliveries#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

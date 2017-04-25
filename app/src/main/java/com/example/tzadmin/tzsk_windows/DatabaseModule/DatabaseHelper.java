@@ -36,6 +36,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "Status integer,"
                 + "Summ integer,"
                 + "FOREIGN KEY (idUser) REFERENCES tbUsers(id)" + ");");
+
+        db.execSQL("create table tbChangedStatus ("
+                + "id integer primary key autoincrement,"
+                + "idUser integer,"
+                + "DocID text,"
+                + "SerialNumber text,"
+                + "Status integer,"
+                + "Date text" + ");");
     }
 
     @Override

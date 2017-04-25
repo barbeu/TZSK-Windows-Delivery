@@ -84,6 +84,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
                 tv.setText(Auth.login + " на данный момент у вас нет доставок.");
                 return;
             }
+            tv.setText("Здравствуйте! " + Auth.login);
         } else {
             Database.insertDeliveries(deliveries, Auth.id);
             deliveries = Database.selectDeliveries(Auth.id);

@@ -3,7 +3,10 @@ package com.example.tzadmin.tzsk_windows.DatabaseModule;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.ListView;
+
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Status;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.User;
 import java.util.ArrayList;
 
@@ -142,4 +145,37 @@ public class Database {
         user.autoLogin = cursor.getInt(3);
         return user;
     }
+
+    public static void insertStatusChanged (Status status) {
+        if(status == null)
+            return;
+        ContentValues cv = new ContentValues();
+        cv.put("idUser", status.idUser);
+        cv.put("DocID", status.DocID);
+        cv.put("SerialNumber", status.SerialNumber);
+        cv.put("Status", status.Status);
+        cv.put("Date", status.Date);
+        db.insert("tbChangedStatus", null, cv);
+    }
+
+    public static ArrayList<Status> selectStatusChanged (int user_id) {
+        Cursor cursor = db.query("tbChangedStatus", null, "idUser = " + user_id, null, null, null, null, null);
+        ArrayList<Status> statuses = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Status status = new Status();
+                status.id = cursor.getInt(0);
+                status.idUser = cursor.getInt(1);
+                status.DocID = cursor.getString(2);
+                status.SerialNumber = cursor.getString(3);
+                status.Status = cursor.getInt(4);
+                status.Date = cursor.getString(5);
+                statuses.add(status);
+            } while (cursor.moveToNext());
+            return statuses;
+        }
+        else
+            return null;
+    }
+
 }
