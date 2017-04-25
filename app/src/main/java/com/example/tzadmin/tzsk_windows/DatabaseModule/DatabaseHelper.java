@@ -33,7 +33,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "NumberOfProducts text,"
                 + "Task text,"
                 + "Mileage text,"
-                + "Status text,"
+                + "Status integer,"
+                + "Summ integer,"
                 + "FOREIGN KEY (idUser) REFERENCES tbUsers(id)" + ");");
     }
 

@@ -33,12 +33,35 @@ public class JSON {
                 delivery.NumberOfProducts = order.getString("NumberOfProducts");
                 delivery.Task = order.getString("Task");
                 delivery.Mileage = order.getString("Mileage");
-                delivery.Status = order.getString("Status");
+                delivery.Status = order.getInt("Status");
+                delivery.Summ = 0;
                 deliveries.add(delivery);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            return null;
         }
         return deliveries;
+    }
+
+    public static String generateClients (ArrayList<Delivery> deliveries) {
+        if(deliveries == null)
+            return null;
+        JSONObject dataJsonObj = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        String res = null;
+        try {
+            for (int i = 0; i < deliveries.size(); i++){
+                ArrayList arrayList = new ArrayList();
+                arrayList.add(deliveries.get(i).DocID.toString());
+                arrayList.add(deliveries.get(i).SerialNumber.toString());
+                jsonArray.put(arrayList);
+            }
+            dataJsonObj.put("arrayOfClients", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        res = dataJsonObj.toString();
+        return res;
     }
 }

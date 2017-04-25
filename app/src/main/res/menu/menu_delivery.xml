@@ -4,31 +4,31 @@
     tools:context="com.example.tzadmin.tzsk_windows.DeliveriesActivity">
 
     <item
-        android:id="@+id/btn_meas_geo"
+        android:id="@+id/btn_deliv_geo"
         android:title="@string/btn_meas_geo"
         android:icon="@android:drawable/ic_menu_mapmode"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/btn_meas_call"
+        android:id="@+id/btn_deliv_call"
         android:title="@string/btn_meas_call"
         android:icon="@android:drawable/ic_menu_call"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/btn_meas_camera"
+        android:id="@+id/btn_deliv_camera"
         android:title="@string/btn_meas_camera"
         android:icon="@android:drawable/ic_menu_camera"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/btn_meas_ok"
+        android:id="@+id/btn_deliv_ok"
         android:title="@string/btn_meas_send"
         android:icon="@android:drawable/ic_menu_send"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/btn_meas_close"
+        android:id="@+id/btn_deliv_close"
         android:title="@string/btn_meas_close"
         app:showAsAction="collapseActionView" />
 

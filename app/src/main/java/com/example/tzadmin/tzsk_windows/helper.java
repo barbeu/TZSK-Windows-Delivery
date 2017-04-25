@@ -15,6 +15,13 @@ import java.io.InputStreamReader;
 
 public class helper {
 
+    /*enum position status "Новая", "В работе", "Исполнена", "Отмена", "Ожидание"*/
+    public static final int INDEX_STATUS_NEW = 0;
+    public static final int INDEX_STATUS_PROCESS = 1;
+    public static final int INDEX_STATUS_COMPLETED = 2;
+    public static final int INDEX_STATUS_CANCEL = 3;
+    public static final int INDEX_STATUS_WAITING = 4;
+
     /*enum codes resp server*/
     public static final int CODE_RESP_SERVER_OK = 200;
     public static final int CODE_RESP_SERVER_AUTH_ERROR = 401;
@@ -47,6 +54,9 @@ public class helper {
             case INCORRECT_AUTH_DATA:
                 message = "Логин или пароль неверный.";
                 break;
+            case INCORRECT_RESP_SERVER_DATA:
+                message = "От сервера пришли некорректные данные.";
+                break;
         }
         Toast toast = Toast.makeText(context, message, length);
         toast.show();
@@ -56,7 +66,8 @@ public class helper {
     public enum MSG {
         EMPTY_AUTH_DATA,
         INTERNET_NOT_CONNECTING,
-        INCORRECT_AUTH_DATA
+        INCORRECT_AUTH_DATA,
+        INCORRECT_RESP_SERVER_DATA
     }
 
     public static boolean InetHasConnection(final Context context)
@@ -78,6 +89,9 @@ public class helper {
     }
 
     public static String streamToString(InputStream is) throws IOException {
+        if(is == null) {
+            return null;
+        }
         StringBuilder sb = new StringBuilder();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
         String line;

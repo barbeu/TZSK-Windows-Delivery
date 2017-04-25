@@ -18,9 +18,8 @@ public class Database {
         db = dbHelper;
     }
 
-    public static void insertDeliveries (ArrayList<Delivery> deliveries, int user_id) {
-        deleteDeliveries();
-        for (Delivery meas : deliveries) {
+    public static void insertDeliveries (ArrayList<Delivery> deliveriesResp, int user_id) {
+        for (Delivery meas : deliveriesResp) {
             ContentValues cv = new ContentValues();
             cv.put("idUser", user_id);
             cv.put("DeliveryDate", meas.DeliveryDate);
@@ -35,6 +34,16 @@ public class Database {
             cv.put("Status", meas.Status);
             db.insert("tbDeliveries", null, cv);
         }
+    }
+
+    public static void updateDelivery (Delivery delivery) {
+        ContentValues cv = new ContentValues();
+        cv.put("Summ", delivery.Summ);
+        cv.put("Status", delivery.Status);
+        db.update("tbDeliveries", cv, "id = ? AND idUser = ?", new String[] {
+                String.valueOf(delivery.id),
+                String.valueOf(delivery.idUser)
+        });
     }
 
     public static void deleteDeliveries() {
@@ -56,7 +65,7 @@ public class Database {
             delivery.NumberOfProducts = cursor.getString(8);
             delivery.Task = cursor.getString(9);
             delivery.Mileage = cursor.getString(10);
-            delivery.Status = cursor.getString(11);
+            delivery.Status = cursor.getInt(11);
             return delivery;
         } else {
             return null;
@@ -82,7 +91,7 @@ public class Database {
                 delivery.NumberOfProducts = cursor.getString(8);
                 delivery.Task = cursor.getString(9);
                 delivery.Mileage = cursor.getString(10);
-                delivery.Status = cursor.getString(11);
+                delivery.Status = cursor.getInt(11);
                 deliveries.add(delivery);
             } while (cursor.moveToNext());
             return deliveries;

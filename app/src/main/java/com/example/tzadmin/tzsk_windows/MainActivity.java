@@ -13,12 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
-import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
-import com.example.tzadmin.tzsk_windows.HttpModule.Http;
-import com.example.tzadmin.tzsk_windows.HttpModule.HttpResp;
-import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
-
-import java.util.ArrayList;
+import com.example.tzadmin.tzsk_windows.TabFragments.Tab1Deliveries;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -42,10 +37,6 @@ public class MainActivity extends AppCompatActivity  {
         tabLayout.setupWithViewPager(mViewPager);
 
         tabDeliveries = new Tab1Deliveries();
-
-        //Http http = new Http();
-        //HttpResp resp = http.GET(helper.HTTP_QUERY_GETORDERS, Auth.login, Auth.passwd);
-        //ArrayList<Delivery> Shipments = JSON.parse(resp.body);
     }
 
     @Override

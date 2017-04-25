@@ -16,5 +16,6 @@ public class Delivery {
     public String NumberOfProducts;
     public String Task;
     public String Mileage;
-    public String Status;
+    public int Status;
+    public int Summ;
 }
