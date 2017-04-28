@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.tzadmin.tzsk_windows.DeliveriesActivity">
+    tools:context="com.example.tzadmin.tzsk_windows.DeliveriesActivity"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,17 +31,36 @@
             android:layout_marginLeft="10dp"
             android:text=""/>
 
+        <TextView
+            android:id="@+id/textView_delivery_status"
+            android:layout_width="153dp"
+            android:layout_height="wrap_content"
+            android:text="Статус" />
+
         <Spinner
             android:id="@+id/spinDeliveryStatus"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="inherit"
-            android:textSize="20dp"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:text=""/>
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textAlignment="inherit"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView_delivery_summ"
+            android:layout_width="153dp"
+            android:layout_height="wrap_content"
+            android:text="Сумма" />
+
+        <EditText
+            android:id="@+id/tv_delivery_summ"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:ems="20"
+            android:inputType="number" />
 
     </LinearLayout>
 

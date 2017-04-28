@@ -1,4 +1,4 @@
-package com.example.tzadmin.tzsk_windows.HttpModule;
+package com.example.tzadmin.tzsk_windows.HttpModels;
 
 /**
  * Created by tzadmin on 11.04.17.

@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table tbDeliveries ("
                 + "id integer primary key autoincrement,"
                 + "idUser integer,"
-                + "DeliveryDate text,"
+                + "DeliveryDate date,"
                 + "DocID text,"
                 + "SerialNumber text,"
                 + "Client text,"
@@ -43,7 +43,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "DocID text,"
                 + "SerialNumber text,"
                 + "Status integer,"
-                + "Date text" + ");");
+                + "Summ integer,"
+                + "Date date" + ");");
     }
 
     @Override

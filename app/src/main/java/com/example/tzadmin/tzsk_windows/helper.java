@@ -8,6 +8,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 /**
  * Created by tzadmin on 07.04.17.
@@ -35,6 +41,7 @@ public class helper {
     public static final int HTTP_PARAM_POST_DATA = 3;
 
     /*enum http query*/
+    public static final String HTTP_QUERY_CHANGE_STATUS = "param=changeData";
     public static final String HTTP_QUERY_AUTH = "param=auth";
     public static final String HTTP_QUERY_GETORDERS = "param=getclients";
 
@@ -57,6 +64,9 @@ public class helper {
             case INCORRECT_RESP_SERVER_DATA:
                 message = "От сервера пришли некорректные данные.";
                 break;
+            case INCORRECT_SPINNER_ITEM:
+                message = "Неправильный выбор статуса.";
+                break;
         }
         Toast toast = Toast.makeText(context, message, length);
         toast.show();
@@ -67,7 +77,8 @@ public class helper {
         EMPTY_AUTH_DATA,
         INTERNET_NOT_CONNECTING,
         INCORRECT_AUTH_DATA,
-        INCORRECT_RESP_SERVER_DATA
+        INCORRECT_RESP_SERVER_DATA,
+        INCORRECT_SPINNER_ITEM
     }
 
     public static boolean InetHasConnection(final Context context)
@@ -99,5 +110,11 @@ public class helper {
             sb.append(line);
         }
         return sb.toString();
+    }
+
+    public static String Date () {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String test =  dateFormat.format( new Date() );
+        return dateFormat.format( new Date() );
     }
 }

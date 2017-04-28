@@ -10,5 +10,6 @@ public class Status {
     public String DocID;
     public String SerialNumber;
     public int Status;
+    public int summ;
     public String Date;
 }

@@ -69,6 +69,7 @@ public class Database {
             delivery.Task = cursor.getString(9);
             delivery.Mileage = cursor.getString(10);
             delivery.Status = cursor.getInt(11);
+            delivery.Summ = cursor.getInt(12);
             return delivery;
         } else {
             return null;
@@ -77,8 +78,7 @@ public class Database {
     }
 
     public static ArrayList<Delivery> selectDeliveries(int user_id) {
-
-        Cursor cursor = db.query("tbDeliveries", null, "idUser = " + user_id, null, null, null, null, null);
+        Cursor cursor = db.query("tbDeliveries", null, "idUser = " + user_id, null, null, null, null);
         ArrayList<Delivery> deliveries = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -154,6 +154,7 @@ public class Database {
         cv.put("DocID", status.DocID);
         cv.put("SerialNumber", status.SerialNumber);
         cv.put("Status", status.Status);
+        cv.put("Summ", status.summ);
         cv.put("Date", status.Date);
         db.insert("tbChangedStatus", null, cv);
     }
@@ -169,7 +170,8 @@ public class Database {
                 status.DocID = cursor.getString(2);
                 status.SerialNumber = cursor.getString(3);
                 status.Status = cursor.getInt(4);
-                status.Date = cursor.getString(5);
+                status.summ = cursor.getInt(5);
+                status.Date = cursor.getString(6);
                 statuses.add(status);
             } while (cursor.moveToNext());
             return statuses;
@@ -178,4 +180,7 @@ public class Database {
             return null;
     }
 
+    public static void deleteStatuses (int user_id) {
+        db.delete("tbChangedStatus", "idUser =" + user_id, null);
+    }
 }

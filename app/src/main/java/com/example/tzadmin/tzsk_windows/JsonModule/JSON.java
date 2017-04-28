@@ -2,6 +2,8 @@ package com.example.tzadmin.tzsk_windows.JsonModule;
 
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Status;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,13 +52,39 @@ public class JSON {
         JSONArray jsonArray = new JSONArray();
         String res = null;
         try {
-            for (int i = 0; i < deliveries.size(); i++){
-                ArrayList arrayList = new ArrayList();
-                arrayList.add(deliveries.get(i).DocID.toString());
-                arrayList.add(deliveries.get(i).SerialNumber.toString());
-                jsonArray.put(arrayList);
+            for (int i = 0; i < deliveries.size(); i++) {
+                JSONArray array = new JSONArray();
+                array.put(deliveries.get(i).DocID.toString());
+                array.put(deliveries.get(i).SerialNumber.toString());
+                jsonArray.put(array);
             }
             dataJsonObj.put("arrayOfClients", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        res = dataJsonObj.toString();
+        return res;
+    }
+
+    public static String generateChangedData (ArrayList<Status> statuses) {
+        if(statuses == null)
+            return null;
+
+        JSONObject dataJsonObj = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        String res = null;
+        try {
+            for (int i = 0; i < statuses.size(); i++){
+                JSONArray array = new JSONArray();
+                array.put(statuses.get(i).DocID.toString());
+                array.put(statuses.get(i).SerialNumber.toString());
+                array.put(String.valueOf(statuses.get(i).Status));
+                array.put(statuses.get(i).Date.toString());
+                //array.put(statuses.get(i).Date.toString());
+                jsonArray.put(array);
+            }
+            dataJsonObj.put("arrayOfData", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

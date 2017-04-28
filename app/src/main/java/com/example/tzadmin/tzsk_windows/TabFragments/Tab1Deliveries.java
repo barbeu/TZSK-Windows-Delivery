@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
@@ -17,9 +18,10 @@ import com.example.tzadmin.tzsk_windows.CustomListView.BoxAdapter;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DeliveriesActivity;
-import com.example.tzadmin.tzsk_windows.HttpModule.HttpResp;
+import com.example.tzadmin.tzsk_windows.HttpModels.HttpResp;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.R;
+import com.example.tzadmin.tzsk_windows.ChangedData.ChangedData;
 import com.example.tzadmin.tzsk_windows.helper;
 
 import java.io.BufferedWriter;
@@ -29,8 +31,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Created by tzadmin on 17.04.17.
@@ -41,12 +41,14 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     BoxAdapter boxAdapter;
     ListView lvMain;
     View rootView;
+    ProgressBar progressBar;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab1deliveries, container, false);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.pb_tab1deliv);
         lvMain = (ListView) rootView.findViewById(R.id.lvMain);
         lvMain.setOnItemClickListener(this);
+
         return rootView;
     }
 
@@ -54,6 +56,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     public void onStart () {
         super.onStart();
         reloadDeliveries();
+        new ChangedData(getActivity());
     }
 
     @Override
@@ -68,7 +71,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     public void reloadDeliveries() {
         if(!helper.InetHasConnection(getActivity()))
             helper.message(getActivity(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
-        new downloadDelivary().execute(helper.HTTP_QUERY_GETORDERS,
+        new downloadDelivery().execute(helper.HTTP_QUERY_GETORDERS,
                 Auth.login,
                 Auth.passwd,
                 JSON.generateClients(Database.selectDeliveries(Auth.id)));
@@ -91,22 +94,21 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
             tv.setText("Здравствуйте! " + Auth.login);
         }
 
-        Collections.sort(deliveries, new FishNameComparator());
         boxAdapter = new BoxAdapter(rootView.getContext(), deliveries);
         lvMain.setAdapter(boxAdapter);
     }
 
-    public class FishNameComparator implements Comparator<Delivery> {
-        public int compare(Delivery left, Delivery right) {
-            return left.SerialNumber.compareTo(right.SerialNumber);
-        }
-    }
+    class downloadDelivery extends AsyncTask<String, Void, String> {
 
-    class downloadDelivary extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            lvMain.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected String doInBackground(String... params) {
-            publishProgress(new Void[]{});
             URL url;
             HttpURLConnection connection;
             String result = null;
@@ -132,6 +134,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
                 resp.Code = connection.getResponseCode();
                 if(resp.Code == helper.CODE_RESP_SERVER_OK)
                     result = helper.streamToString(connection.getInputStream());
+                connection.disconnect();
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
@@ -143,6 +146,8 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             refreshMeases(result);
+            progressBar.setVisibility(View.INVISIBLE);
+            lvMain.setVisibility(View.VISIBLE);
         }
     }
 }
