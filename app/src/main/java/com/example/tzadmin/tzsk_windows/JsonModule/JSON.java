@@ -1,8 +1,8 @@
 package com.example.tzadmin.tzsk_windows.JsonModule;
 
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
-import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Status;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +36,7 @@ public class JSON {
                 delivery.Task = order.getString("Task");
                 delivery.Mileage = order.getString("Mileage");
                 delivery.Status = order.getInt("Status");
-                delivery.Summ = 0;
+                delivery.Summ = order.getInt("Summ");
                 deliveries.add(delivery);
             }
         } catch (JSONException e) {
@@ -67,7 +67,7 @@ public class JSON {
         return res;
     }
 
-    public static String generateChangedData (ArrayList<Status> statuses) {
+    public static String generateChangedData (ArrayList<ChangedData> statuses) {
         if(statuses == null)
             return null;
 
@@ -80,8 +80,8 @@ public class JSON {
                 array.put(statuses.get(i).DocID.toString());
                 array.put(statuses.get(i).SerialNumber.toString());
                 array.put(String.valueOf(statuses.get(i).Status));
+                array.put(String.valueOf(statuses.get(i).summ));
                 array.put(statuses.get(i).Date.toString());
-                //array.put(statuses.get(i).Date.toString());
                 jsonArray.put(array);
             }
             dataJsonObj.put("arrayOfData", jsonArray);
@@ -91,5 +91,23 @@ public class JSON {
         }
         res = dataJsonObj.toString();
         return res;
+    }
+
+    public static String generatePhoto (String photo, String DocID) {
+        JSONObject dataJsonObj = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        String result = null;
+        try {
+            JSONArray json = new JSONArray();
+            json.put(DocID);
+            json.put(photo);
+            jsonArray.put(json);
+            dataJsonObj.put("arrayOfPhoto", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        result = dataJsonObj.toString();
+        return result;
     }
 }

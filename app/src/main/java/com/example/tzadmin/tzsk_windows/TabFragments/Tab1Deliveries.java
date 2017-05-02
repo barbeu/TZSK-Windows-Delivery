@@ -21,7 +21,7 @@ import com.example.tzadmin.tzsk_windows.DeliveriesActivity;
 import com.example.tzadmin.tzsk_windows.HttpModels.HttpResp;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.R;
-import com.example.tzadmin.tzsk_windows.ChangedData.ChangedData;
+import com.example.tzadmin.tzsk_windows.SendDataModule.SendData;
 import com.example.tzadmin.tzsk_windows.helper;
 
 import java.io.BufferedWriter;
@@ -56,7 +56,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     public void onStart () {
         super.onStart();
         reloadDeliveries();
-        new ChangedData(getActivity());
+        new SendData(getActivity());
     }
 
     @Override
@@ -77,7 +77,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
                 JSON.generateClients(Database.selectDeliveries(Auth.id)));
     }
 
-    private void refreshMeases (String jsonStringDeliveries) {
+    private void refreshDeliveries (String jsonStringDeliveries) {
         deliveries = JSON.parse(jsonStringDeliveries);
         TextView tv = (TextView) rootView.findViewById(R.id.tvMain);
 
@@ -145,7 +145,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            refreshMeases(result);
+            refreshDeliveries(result);
             progressBar.setVisibility(View.INVISIBLE);
             lvMain.setVisibility(View.VISIBLE);
         }

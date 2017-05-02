@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "NumberOfProducts text,"
                 + "Task text,"
                 + "Mileage text,"
-                + "Status integer,"
+                + "ChangedData integer,"
                 + "Summ integer,"
                 + "FOREIGN KEY (idUser) REFERENCES tbUsers(id)" + ");");
 
@@ -45,6 +45,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "Status integer,"
                 + "Summ integer,"
                 + "Date date" + ");");
+
+        db.execSQL("create table tbPhotos ("
+                + "id integer primary key autoincrement,"
+                + "idUser integer,"
+                + "DocID text,"
+                + "PathPhoto text" + ");");
     }
 
     @Override

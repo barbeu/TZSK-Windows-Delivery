@@ -41,7 +41,8 @@ public class helper {
     public static final int HTTP_PARAM_POST_DATA = 3;
 
     /*enum http query*/
-    public static final String HTTP_QUERY_CHANGE_STATUS = "param=changeData";
+    public static final String HTTP_QUERY_SEND_PHOTO = "param=photo";
+    public static final String HTTP_QUERY_CHANGE_DATA = "param=changeData";
     public static final String HTTP_QUERY_AUTH = "param=auth";
     public static final String HTTP_QUERY_GETORDERS = "param=getclients";
 

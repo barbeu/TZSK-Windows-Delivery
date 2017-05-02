@@ -3,10 +3,10 @@ package com.example.tzadmin.tzsk_windows.DatabaseModule;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ListView;
 
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
-import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Status;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.User;
 import java.util.ArrayList;
 
@@ -34,7 +34,7 @@ public class Database {
             cv.put("NumberOfProducts", meas.NumberOfProducts);
             cv.put("Task", meas.Task);
             cv.put("Mileage", meas.Mileage);
-            cv.put("Status", meas.Status);
+            cv.put("ChangedData", meas.Status);
             db.insert("tbDeliveries", null, cv);
         }
     }
@@ -42,7 +42,7 @@ public class Database {
     public static void updateDelivery (Delivery delivery) {
         ContentValues cv = new ContentValues();
         cv.put("Summ", delivery.Summ);
-        cv.put("Status", delivery.Status);
+        cv.put("ChangedData", delivery.Status);
         db.update("tbDeliveries", cv, "id = ? AND idUser = ?", new String[] {
                 String.valueOf(delivery.id),
                 String.valueOf(delivery.idUser)
@@ -146,41 +146,75 @@ public class Database {
         return user;
     }
 
-    public static void insertStatusChanged (Status status) {
-        if(status == null)
+    public static void insertDataChanged (ChangedData data) {
+        if(data == null)
             return;
         ContentValues cv = new ContentValues();
-        cv.put("idUser", status.idUser);
-        cv.put("DocID", status.DocID);
-        cv.put("SerialNumber", status.SerialNumber);
-        cv.put("Status", status.Status);
-        cv.put("Summ", status.summ);
-        cv.put("Date", status.Date);
+        cv.put("idUser", data.idUser);
+        cv.put("DocID", data.DocID);
+        cv.put("SerialNumber", data.SerialNumber);
+        cv.put("Status", data.Status);
+        cv.put("Summ", data.summ);
+        cv.put("Date", data.Date);
         db.insert("tbChangedStatus", null, cv);
     }
 
-    public static ArrayList<Status> selectStatusChanged (int user_id) {
+    public static ArrayList<ChangedData> selectDataChanged (int user_id) {
         Cursor cursor = db.query("tbChangedStatus", null, "idUser = " + user_id, null, null, null, null, null);
-        ArrayList<Status> statuses = new ArrayList<>();
+        ArrayList<ChangedData> Data = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                Status status = new Status();
-                status.id = cursor.getInt(0);
-                status.idUser = cursor.getInt(1);
-                status.DocID = cursor.getString(2);
-                status.SerialNumber = cursor.getString(3);
-                status.Status = cursor.getInt(4);
-                status.summ = cursor.getInt(5);
-                status.Date = cursor.getString(6);
-                statuses.add(status);
+                ChangedData data = new ChangedData();
+                data.id = cursor.getInt(0);
+                data.idUser = cursor.getInt(1);
+                data.DocID = cursor.getString(2);
+                data.SerialNumber = cursor.getString(3);
+                data.Status = cursor.getInt(4);
+                data.summ = cursor.getInt(5);
+                data.Date = cursor.getString(6);
+                Data.add(data);
             } while (cursor.moveToNext());
-            return statuses;
+            return Data;
         }
         else
             return null;
     }
 
-    public static void deleteStatuses (int user_id) {
+    public static void deleteDataChanged (int user_id) {
         db.delete("tbChangedStatus", "idUser =" + user_id, null);
+    }
+
+    public static void insertPhoto (Photo photo) {
+        if(photo == null)
+            return;
+        ContentValues cv = new ContentValues();
+        cv.put("idUser", photo.idUser);
+        cv.put("DocID", photo.DocID);
+        cv.put("PathPhoto", photo.path);
+        db.insert("tbPhotos", null, cv);
+    }
+
+    public static ArrayList<Photo> selectPhoto (int user_id) {
+        Cursor cursor = db.query("tbPhotos", null, "idUser = " + user_id, null, null, null, null, null);
+        ArrayList<Photo> photos = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Photo photo = new Photo();
+                photo.id = cursor.getInt(0);
+                photo.idUser = cursor.getInt(1);
+                photo.DocID = cursor.getString(2);
+                photo.path = cursor.getString(3);
+                photos.add(photo);
+            } while (cursor.moveToNext());
+            return photos;
+        }
+        else
+            return null;
+    }
+
+    public static void deletePhoto (int user_id, String path) {
+        db.delete("tbPhotos",
+                "idUser =" + user_id + " AND PathPhoto = ?",
+                new String[] { path });
     }
 }

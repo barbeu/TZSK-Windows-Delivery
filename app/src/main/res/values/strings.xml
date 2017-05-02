@@ -12,7 +12,7 @@
     <string name="btn_main_reload">Обновить</string>
 
     <!--Meas Activity-->
-    <string name="MeasActivity_name">ТЗСК</string>
+    <string name="MeasActivity_name"></string>
     <string name="btn_meas_send">Отправить</string>
     <string name="btn_meas_call">Позвонить</string>
     <string name="btn_meas_geo">Карта</string>
@@ -24,5 +24,6 @@
     <string name="btn_setting_reconnect">Выполнить Переподключение</string>
     <string name="tb_setting_server">Сервер</string>
     <string name="tb_setting_port">Порт</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

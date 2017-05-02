@@ -20,9 +20,8 @@ import android.widget.Toast;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseHelper;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
-import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Status;
-import com.example.tzadmin.tzsk_windows.ChangedData.ChangedData;
 
 public class DeliveriesActivity extends AppCompatActivity implements OnItemSelectedListener {
 
@@ -34,6 +33,7 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
     AlertDialog.Builder alertd;
     Context context;
     EditText tb_summ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,12 +93,17 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
                 finish();
                 break;
             case R.id.btn_deliv_call:
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" +delivery.ContactDetails));
-                startActivity(intent);
+                Intent intentCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" +delivery.ContactDetails));
+                startActivity(intentCall);
                 break;
             case R.id.btn_deliv_camera:
+                int idDelivery = delivery.id;
+                Intent intent = new Intent(this, CameraActivity.class);
+                intent.putExtra("id", idDelivery);
+                startActivity(intent);
                 break;
             case R.id.btn_deliv_geo:
+                startActivity(new Intent(this, MapsActivity.class));
                 break;
             case R.id.btn_deliv_ok:
                 sendDataAndFinish();
@@ -123,26 +128,26 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
     }
 
     private void commit () {
-        if(first_status != delivery.Status) {
+        if(first_status != delivery.Status ||
+                Integer.parseInt(tb_summ.getText().toString()) != delivery.Summ) {
+
             first_status = delivery.Status;
-            Status status = new Status();
-            status.idUser = Auth.id;
-            status.SerialNumber = delivery.SerialNumber;
-            status.DocID = delivery.DocID;
-            status.Status = delivery.Status;
-            status.Date = helper.Date();
-            Database.insertStatusChanged(status);
-            Database.updateDelivery(delivery);
-        }
-        if (Integer.parseInt(tb_summ.getText().toString()) != delivery.Summ) {
             delivery.Summ = Integer.parseInt(tb_summ.getText().toString());
+
+            ChangedData data = new ChangedData();
+            data.idUser = Auth.id;
+            data.SerialNumber = delivery.SerialNumber;
+            data.DocID = delivery.DocID;
+            data.Status = delivery.Status;
+            data.summ = delivery.Summ;
+            data.Date = helper.Date();
+            Database.insertDataChanged(data);
             Database.updateDelivery(delivery);
         }
     }
 
     private void sendDataAndFinish() {
         commit();
-        new ChangedData(this);
         finish();
     }
 
