@@ -53,7 +53,6 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
 
     @Override
     public void onBackPressed() {
-        // super.onBackPressed();
         if(first_status != delivery.Status ||
                 Integer.parseInt(tb_summ.getText().toString()) != delivery.Summ) {
             alertd.show();
@@ -105,9 +104,12 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
                 break;
             case R.id.btn_deliv_geo:
                 if(MyLocation.Longitude != null && MyLocation.Latitude != null) {
-                    Intent intentGeo = new Intent(this, MapsActivity.class);
-                    intentGeo.putExtra("id", idDelivery);
-                    startActivity(intentGeo);
+                    if(helper.InetHasConnection(this)) {
+                        Intent intentGeo = new Intent(this, MapsActivity.class);
+                        intentGeo.putExtra("id", idDelivery);
+                        startActivity(intentGeo);
+                    } else
+                        helper.message(this, helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_SHORT);
                 } else
                     helper.message(this, helper.MSG.POWER_SEND_GEODATA, Toast.LENGTH_SHORT);
                 break;
