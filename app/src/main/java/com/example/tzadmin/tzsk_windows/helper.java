@@ -47,6 +47,7 @@ public class helper {
     public static final String HTTP_QUERY_GETORDERS = "param=getclients";
 
     /*TODO fix config*/
+    public static String googleApi = "https://maps.googleapis.com";
     public static String port = "11120";
     public static String httpServer = "http://192.168.0.251/tzsk_tst/hs/JavaMobileAppDelivery/AnyInquiry/?";
 
@@ -54,19 +55,22 @@ public class helper {
         String message = null;
         switch (msg) {
             case EMPTY_AUTH_DATA:
-                message = "Логин и пароль не может быть пустым.";
+                message = "Логин и пароль не может быть пустым";
                 break;
             case INTERNET_NOT_CONNECTING:
-                message = "Отсутствует интернет подключение.";
+                message = "Отсутствует интернет подключение";
                 break;
             case INCORRECT_AUTH_DATA:
-                message = "Логин или пароль неверный.";
+                message = "Логин или пароль неверный";
                 break;
             case INCORRECT_RESP_SERVER_DATA:
-                message = "От сервера пришли некорректные данные.";
+                message = "От сервера пришли некорректные данные";
                 break;
             case INCORRECT_SPINNER_ITEM:
-                message = "Неправильный выбор статуса.";
+                message = "Неправильный выбор статуса";
+                break;
+            case POWER_SEND_GEODATA:
+                message = "Включите передачу геоданных";
                 break;
         }
         Toast toast = Toast.makeText(context, message, length);
@@ -79,7 +83,8 @@ public class helper {
         INTERNET_NOT_CONNECTING,
         INCORRECT_AUTH_DATA,
         INCORRECT_RESP_SERVER_DATA,
-        INCORRECT_SPINNER_ITEM
+        INCORRECT_SPINNER_ITEM,
+        POWER_SEND_GEODATA
     }
 
     public static boolean InetHasConnection(final Context context)

@@ -22,6 +22,7 @@ import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseHelper;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
+import com.example.tzadmin.tzsk_windows.Location.MyLocation;
 
 public class DeliveriesActivity extends AppCompatActivity implements OnItemSelectedListener {
 
@@ -88,6 +89,7 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        int idDelivery = delivery.id;
         switch (id) {
             case R.id.btn_deliv_close:
                 finish();
@@ -97,13 +99,17 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
                 startActivity(intentCall);
                 break;
             case R.id.btn_deliv_camera:
-                int idDelivery = delivery.id;
-                Intent intent = new Intent(this, CameraActivity.class);
-                intent.putExtra("id", idDelivery);
-                startActivity(intent);
+                Intent intentCamera = new Intent(this, CameraActivity.class);
+                intentCamera.putExtra("id", idDelivery);
+                startActivity(intentCamera);
                 break;
             case R.id.btn_deliv_geo:
-                startActivity(new Intent(this, MapsActivity.class));
+                if(MyLocation.Longitude != null && MyLocation.Latitude != null) {
+                    Intent intentGeo = new Intent(this, MapsActivity.class);
+                    intentGeo.putExtra("id", idDelivery);
+                    startActivity(intentGeo);
+                } else
+                    helper.message(this, helper.MSG.POWER_SEND_GEODATA, Toast.LENGTH_SHORT);
                 break;
             case R.id.btn_deliv_ok:
                 sendDataAndFinish();
