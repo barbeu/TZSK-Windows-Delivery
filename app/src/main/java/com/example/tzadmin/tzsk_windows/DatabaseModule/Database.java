@@ -212,9 +212,8 @@ public class Database {
             return null;
     }
 
-    public static void deletePhoto (int user_id, String path) {
+    public static void deletePhoto (int user_id) {
         db.delete("tbPhotos",
-                "idUser =" + user_id + " AND PathPhoto = ?",
-                new String[] { path });
+                "idUser =" + user_id, null);
     }
 }

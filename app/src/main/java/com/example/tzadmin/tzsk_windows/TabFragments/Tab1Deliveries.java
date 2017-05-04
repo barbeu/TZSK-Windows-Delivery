@@ -21,7 +21,7 @@ import com.example.tzadmin.tzsk_windows.DeliveriesActivity;
 import com.example.tzadmin.tzsk_windows.HttpModels.HttpResp;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.R;
-import com.example.tzadmin.tzsk_windows.SendDataModule.SendData;
+import com.example.tzadmin.tzsk_windows.SendDataModule.SendChangedData;
 import com.example.tzadmin.tzsk_windows.helper;
 
 import java.io.BufferedWriter;
@@ -56,7 +56,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     public void onStart () {
         super.onStart();
         reloadDeliveries();
-        new SendData(getActivity());
+        new SendChangedData(getActivity());
     }
 
     @Override

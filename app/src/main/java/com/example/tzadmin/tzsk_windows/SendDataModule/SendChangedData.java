@@ -1,42 +1,36 @@
 package com.example.tzadmin.tzsk_windows.SendDataModule;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-
+import com.example.tzadmin.tzsk_windows.AbstractSendData.SendData;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseHelper;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
-import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.helper;
 import com.github.kevinsawicki.http.HttpRequest;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 
 /**
  * Created by tzadmin on 26.04.17.
  */
 
-public class SendData extends AppCompatActivity {
+public class SendChangedData extends SendData {
 
-    public SendData(Context context) {
+    public SendChangedData(Context context) {
         if(!helper.InetHasConnection(context))
             return;
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         Database.SetUp(dbHelper.getReadableDatabase());
 
-        ObserverDataChanged(Database.selectDataChanged(Auth.id));
+        ObserverData(Database.selectDataChanged(Auth.id));
     }
 
-    public void ObserverDataChanged (ArrayList<ChangedData> dataChanged) {
+    @Override
+    public void ObserverData(Object objects) {
+        ArrayList<ChangedData> dataChanged = (ArrayList<ChangedData>) objects;
+
         if(dataChanged == null)
             return;
 
@@ -44,7 +38,7 @@ public class SendData extends AppCompatActivity {
                 JSON.generateChangedData(dataChanged));
     }
 
-    class SendDataChanged  extends AsyncTask<String, Void, Integer> {
+    class SendDataChanged extends AsyncTask<String, Void, Integer> {
 
         @Override
         protected Integer doInBackground(String... params) {
