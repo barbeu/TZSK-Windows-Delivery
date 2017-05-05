@@ -11,9 +11,13 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.Location.MyLocation;
+import com.example.tzadmin.tzsk_windows.SendDataModule.SendChangedData;
+import com.example.tzadmin.tzsk_windows.SendDataModule.SendPhoto;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab1Deliveries;
 
 public class MainActivity extends AppCompatActivity  {
@@ -38,6 +42,13 @@ public class MainActivity extends AppCompatActivity  {
         tabLayout.setupWithViewPager(mViewPager);
 
         tabDeliveries = new Tab1Deliveries();
+    }
+
+    @Override
+    public void onStart () {
+        super.onStart();
+        new SendPhoto(this);
+        new SendChangedData(this);
     }
 
     @Override

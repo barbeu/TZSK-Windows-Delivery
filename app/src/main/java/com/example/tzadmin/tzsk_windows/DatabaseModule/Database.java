@@ -190,6 +190,7 @@ public class Database {
         ContentValues cv = new ContentValues();
         cv.put("idUser", photo.idUser);
         cv.put("DocID", photo.DocID);
+        cv.put("SerialNumber", photo.SerialNumber);
         cv.put("PathPhoto", photo.path);
         db.insert("tbPhotos", null, cv);
     }
@@ -203,7 +204,8 @@ public class Database {
                 photo.id = cursor.getInt(0);
                 photo.idUser = cursor.getInt(1);
                 photo.DocID = cursor.getString(2);
-                photo.path = cursor.getString(3);
+                photo.SerialNumber = cursor.getString(3);
+                photo.path = cursor.getString(4);
                 photos.add(photo);
             } while (cursor.moveToNext());
             return photos;

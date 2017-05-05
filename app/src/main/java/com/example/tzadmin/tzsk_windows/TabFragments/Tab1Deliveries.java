@@ -56,7 +56,6 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     public void onStart () {
         super.onStart();
         reloadDeliveries();
-        new SendChangedData(getActivity());
     }
 
     @Override
@@ -71,7 +70,9 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     public void reloadDeliveries() {
         if(!helper.InetHasConnection(getActivity()))
             helper.message(getActivity(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
-        new downloadDelivery().execute(helper.HTTP_QUERY_GETORDERS,
+
+        new downloadDelivery().execute(
+                helper.HTTP_QUERY_GETORDERS,
                 Auth.login,
                 Auth.passwd,
                 JSON.generateClients(Database.selectDeliveries(Auth.id)));

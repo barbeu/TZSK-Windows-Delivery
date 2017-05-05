@@ -3,6 +3,7 @@ package com.example.tzadmin.tzsk_windows.JsonModule;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,20 +94,18 @@ public class JSON {
         return res;
     }
 
-    public static String generatePhoto (String photo, String DocID) {
+    public static String generateKeysPhoto(ArrayList<Photo> photos) {
         JSONObject dataJsonObj = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         String result = null;
         try {
-            JSONArray json = new JSONArray();
-            json.put(DocID);
-            json.put(photo);
-            jsonArray.put(json);
-            dataJsonObj.put("arrayOfPhoto", jsonArray);
+            for (Photo photo : photos) {
+                jsonArray.put(photo.DocID + "&" + photo.SerialNumber);
+            }
+            dataJsonObj.put("arrayOfKey", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         result = dataJsonObj.toString();
         return result;
     }

@@ -8,5 +8,6 @@ public class Photo {
     public int id;
     public int idUser;
     public String DocID;
+    public String SerialNumber;
     public String path;
 }

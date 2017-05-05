@@ -50,6 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "id integer primary key autoincrement,"
                 + "idUser integer,"
                 + "DocID text,"
+                + "SerialNumber text,"
                 + "PathPhoto text" + ");");
     }
 

@@ -42,7 +42,14 @@ public class CameraActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 if (intent == null) {
                     //Add photo to database
+                    Photo photo = new Photo();
+                    photo.path = pathPhoto;
+                    photo.DocID = delivery.DocID;
+                    photo.SerialNumber = delivery.SerialNumber;
+                    photo.idUser = Auth.id;
+                    Database.insertPhoto(photo);
                     finish();
+                    return;
                 }
             } else finish();
         }
