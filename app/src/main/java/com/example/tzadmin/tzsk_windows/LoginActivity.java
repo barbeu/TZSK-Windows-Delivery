@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +16,7 @@ import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseHelper;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.User;
 import android.view.View.OnClickListener;
-import com.example.tzadmin.tzsk_windows.HttpModels.HttpResp;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
+import com.github.kevinsawicki.http.HttpRequest;
 import static com.example.tzadmin.tzsk_windows.AuthModule.Auth.setAuth;
 
 public class LoginActivity extends AppCompatActivity implements OnClickListener {
@@ -88,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                     helper.message(this, helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_SHORT);
                     return;
                 }
-                new getAuth().execute(helper.HTTP_QUERY_AUTH, _login, _password);
+                new getAuth().execute(_login, _password);
             }
         }
         else {
@@ -96,8 +90,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
     }
 
-    private void setHttpResp (HttpResp resp) {
-        switch (resp.Code) {
+    private void setHttpResp (Integer code) {
+        switch (code) {
             case helper.CODE_RESP_SERVER_OK:
                 id = Database.insertUser(_login, _password);
                 startMainActivity(id, _login, _password, 1);
@@ -108,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             default:
                 Toast toast = Toast.makeText(
                         this,
-                        "Обратитесь к администратору код ошибки - " + resp.Code,
+                        "Обратитесь к администратору код ошибки - " + code,
                         Toast.LENGTH_SHORT);
                 toast.show();
                 break;
@@ -121,8 +115,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         finish();
     }
 
-    class getAuth extends AsyncTask<String, Void, HttpResp> {
-        HttpResp resp;
+    class getAuth extends AsyncTask<String, Void, Integer> {
 
         @Override
         protected void onPreExecute () {
@@ -131,25 +124,13 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
 
         @Override
-        protected HttpResp doInBackground(String... params) {
-            try {
-                URL url = new URL(helper.httpServer + params[helper.HTTP_PARAM_QUERY]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestProperty("Authorization", "Basic " + Base64.encodeToString((params[helper.HTTP_PARAM_LOGIN] + ":" + params[helper.HTTP_PARAM_PASSWORD]).getBytes(), Base64.NO_WRAP ));
-                connection.connect();
-                resp = new HttpResp();
-                resp.Code = connection.getResponseCode();
-                resp.Message = connection.getResponseMessage();
-                if(resp.Code == helper.CODE_RESP_SERVER_OK)
-                    resp.body = helper.streamToString(connection.getInputStream());
-                connection.disconnect();
-                return resp;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
+        protected Integer doInBackground(String... params) {
+
+            return HttpRequest.get(helper.httpServer + helper.HTTP_QUERY_AUTH)
+                    .basic(params[0], params[1])
+                    .code();
         }
-        protected void onPostExecute (HttpResp result) {
+        protected void onPostExecute (Integer result) {
             setHttpResp(result);
             progressBar.setVisibility(View.INVISIBLE);
         }

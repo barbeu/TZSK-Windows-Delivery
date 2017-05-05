@@ -3,7 +3,6 @@ package com.example.tzadmin.tzsk_windows.TabFragments;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +17,12 @@ import com.example.tzadmin.tzsk_windows.CustomListView.BoxAdapter;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DeliveriesActivity;
-import com.example.tzadmin.tzsk_windows.HttpModels.HttpResp;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.R;
-import com.example.tzadmin.tzsk_windows.SendDataModule.SendChangedData;
 import com.example.tzadmin.tzsk_windows.helper;
-
-import java.io.BufferedWriter;
+import com.github.kevinsawicki.http.HttpRequest;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import java.util.ArrayList;
 
 /**
@@ -71,11 +64,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         if(!helper.InetHasConnection(getActivity()))
             helper.message(getActivity(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
 
-        new downloadDelivery().execute(
-                helper.HTTP_QUERY_GETORDERS,
-                Auth.login,
-                Auth.passwd,
-                JSON.generateClients(Database.selectDeliveries(Auth.id)));
+        new downloadDelivery().execute();
     }
 
     private void refreshDeliveries (String jsonStringDeliveries) {
@@ -110,32 +99,18 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
 
         @Override
         protected String doInBackground(String... params) {
-            URL url;
-            HttpURLConnection connection;
+
+            String JsonStringRequest =
+                    JSON.generateClients(Database.selectDeliveries(Auth.id));
+
             String result = null;
             try {
-                url = new URL(helper.httpServer + params[helper.HTTP_PARAM_QUERY]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestProperty("Authorization", "Basic " + Base64.encodeToString((params[helper.HTTP_PARAM_LOGIN] + ":" + params[helper.HTTP_PARAM_PASSWORD]).getBytes(), Base64.NO_WRAP ));
-                connection.setReadTimeout(10000);
-                connection.setConnectTimeout(15000);
-                connection.setRequestMethod("POST");
-                connection.setDoInput(true);
-                connection.setDoOutput(true);
-
-                OutputStream os = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write( params[helper.HTTP_PARAM_POST_DATA] == null ? "" : params[helper.HTTP_PARAM_POST_DATA]);
-                writer.flush();
-                writer.close();
-                os.close();
-
-                connection.connect();
-                HttpResp resp = new HttpResp();
-                resp.Code = connection.getResponseCode();
-                if(resp.Code == helper.CODE_RESP_SERVER_OK)
-                    result = helper.streamToString(connection.getInputStream());
-                connection.disconnect();
+                result = helper.streamToString(
+                        HttpRequest.post(helper.httpServer + helper.HTTP_QUERY_GETORDERS)
+                        .basic(Auth.login, Auth.passwd)
+                        .send(JsonStringRequest)
+                        .stream()
+                );
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;

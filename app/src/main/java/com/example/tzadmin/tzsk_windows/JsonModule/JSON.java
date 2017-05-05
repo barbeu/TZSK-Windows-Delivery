@@ -48,7 +48,7 @@ public class JSON {
 
     public static String generateClients (ArrayList<Delivery> deliveries) {
         if(deliveries == null)
-            return null;
+            return "";
         JSONObject dataJsonObj = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         String res = null;
@@ -62,7 +62,7 @@ public class JSON {
             dataJsonObj.put("arrayOfClients", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
-            return null;
+            return "";
         }
         res = dataJsonObj.toString();
         return res;
