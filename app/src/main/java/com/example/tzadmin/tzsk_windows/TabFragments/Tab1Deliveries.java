@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
-import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,15 +21,11 @@ import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.R;
 import com.example.tzadmin.tzsk_windows.helper;
 import com.github.kevinsawicki.http.HttpRequest;
-import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
-import devs.mulham.horizontalcalendar.HorizontalCalendarView;
 
 /**
  * Created by tzadmin on 17.04.17.
@@ -53,7 +47,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         lvMain.setOnItemClickListener(this);
 
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.WEEK_OF_MONTH, 1);
+        endDate.add(Calendar.WEEK_OF_MONTH, 2);
 
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.WEEK_OF_MONTH, -1);

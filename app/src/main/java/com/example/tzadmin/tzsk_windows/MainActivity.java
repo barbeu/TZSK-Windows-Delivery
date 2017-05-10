@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity  {
                 starActivity(LoginActivity.class);
                 break;
             case R.id.btn_refresh:
-                //tabDeliveries.reloadDeliveries();
+                tabDeliveries.onStart();
                 break;
         }
         return super.onOptionsItemSelected(item);

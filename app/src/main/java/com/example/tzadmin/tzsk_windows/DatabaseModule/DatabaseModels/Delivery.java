@@ -1,7 +1,5 @@
 package com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels;
 
-import java.util.Date;
-
 /**
  * Created by tzadmin on 24.04.17.
  */
