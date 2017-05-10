@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.InterruptedIOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -72,6 +74,9 @@ public class helper {
             case POWER_SEND_GEODATA:
                 message = "Включите передачу геоданных";
                 break;
+            case ERROR_COORDINATE_ADDRESS:
+                message = "Неправильный адрес доставки.";
+                break;
         }
         Toast toast = Toast.makeText(context, message, length);
         toast.show();
@@ -84,7 +89,8 @@ public class helper {
         INCORRECT_AUTH_DATA,
         INCORRECT_RESP_SERVER_DATA,
         INCORRECT_SPINNER_ITEM,
-        POWER_SEND_GEODATA
+        POWER_SEND_GEODATA,
+        ERROR_COORDINATE_ADDRESS
     }
 
     public static boolean InetHasConnection(final Context context)
@@ -120,7 +126,36 @@ public class helper {
 
     public static String Date () {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        String test =  dateFormat.format( new Date() );
         return dateFormat.format( new Date() );
+    }
+
+    public static String Date (Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        return dateFormat.format( date );
+    }
+
+    public static int StringToMillisec (String input) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        long timeInMilliseconds = -1;
+        try {
+            Date mDate = sdf.parse(input);
+            timeInMilliseconds = mDate.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return (int)timeInMilliseconds;
+    }
+
+    public static int getDay (String date) {
+        return Integer.parseInt(date.substring(8,10));
+    }
+
+    public static int getMonth (String date) {
+        return Integer.parseInt(date.substring(5,7));
+    }
+
+    public static int getYear (String date) {
+        return Integer.parseInt(date.substring(0,4));
     }
 }

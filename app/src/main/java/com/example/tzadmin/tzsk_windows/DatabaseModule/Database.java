@@ -8,6 +8,8 @@ import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedDat
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.User;
+import com.example.tzadmin.tzsk_windows.helper;
+
 import java.util.ArrayList;
 
 /**
@@ -22,19 +24,24 @@ public class Database {
     }
 
     public static void insertDeliveries (ArrayList<Delivery> deliveriesResp, int user_id) {
-        for (Delivery meas : deliveriesResp) {
+        for (Delivery delivery : deliveriesResp) {
             ContentValues cv = new ContentValues();
             cv.put("idUser", user_id);
-            cv.put("DeliveryDate", meas.DeliveryDate);
-            cv.put("DocID", meas.DocID);
-            cv.put("SerialNumber", meas.SerialNumber);
-            cv.put("Client", meas.Client);
-            cv.put("Address", meas.Address);
-            cv.put("ContactDetails", meas.ContactDetails);
-            cv.put("NumberOfProducts", meas.NumberOfProducts);
-            cv.put("Task", meas.Task);
-            cv.put("Mileage", meas.Mileage);
-            cv.put("ChangedData", meas.Status);
+            cv.put("DeliveryDate", delivery.DeliveryDate);
+            cv.put("day", delivery.day);
+            cv.put("month", delivery.month);
+            cv.put("year", delivery.year);
+            cv.put("DocID", delivery.DocID);
+            cv.put("SerialNumber", delivery.SerialNumber);
+            cv.put("Client", delivery.Client);
+            cv.put("Address", delivery.Address);
+            cv.put("ContactDetails", delivery.ContactDetails);
+            cv.put("NumberOfProducts", delivery.NumberOfProducts);
+            cv.put("Task", delivery.Task);
+            cv.put("Mileage", delivery.Mileage);
+            cv.put("ChangedData", delivery.Status);
+            cv.put("lat", delivery.lati);
+            cv.put("long", delivery.longi);
             db.insert("tbDeliveries", null, cv);
         }
     }
@@ -60,16 +67,21 @@ public class Database {
             delivery.id = cursor.getInt(0);
             delivery.idUser = cursor.getInt(1);
             delivery.DeliveryDate = cursor.getString(2);
-            delivery.DocID = cursor.getString(3);
-            delivery.SerialNumber = cursor.getString(4);
-            delivery.Client = cursor.getString(5);
-            delivery.Address = cursor.getString(6);
-            delivery.ContactDetails = cursor.getString(7);
-            delivery.NumberOfProducts = cursor.getString(8);
-            delivery.Task = cursor.getString(9);
-            delivery.Mileage = cursor.getString(10);
-            delivery.Status = cursor.getInt(11);
-            delivery.Summ = cursor.getInt(12);
+            delivery.day = cursor.getInt(3);
+            delivery.month = cursor.getInt(4);
+            delivery.year = cursor.getInt(5);
+            delivery.DocID = cursor.getString(6);
+            delivery.SerialNumber = cursor.getString(7);
+            delivery.Client = cursor.getString(8);
+            delivery.Address = cursor.getString(9);
+            delivery.ContactDetails = cursor.getString(10);
+            delivery.NumberOfProducts = cursor.getString(11);
+            delivery.Task = cursor.getString(12);
+            delivery.Mileage = cursor.getString(13);
+            delivery.Status = cursor.getInt(14);
+            delivery.Summ = cursor.getInt(15);
+            delivery.lati = cursor.getString(16);
+            delivery.longi = cursor.getString(17);
             return delivery;
         } else {
             return null;
@@ -77,8 +89,13 @@ public class Database {
 
     }
 
-    public static ArrayList<Delivery> selectDeliveries(int user_id) {
-        Cursor cursor = db.query("tbDeliveries", null, "idUser = " + user_id, null, null, null, null);
+    public static ArrayList<Delivery> selectDeliveries(int user_id, String date) {
+        Cursor cursor = db.query("tbDeliveries", null,
+                "idUser = " + user_id +
+                        " AND day =" + helper.getDay(date) +
+                        " AND month =" + helper.getMonth(date) +
+                        " AND year =" + helper.getYear(date),
+                null, null, null, null, null);
         ArrayList<Delivery> deliveries = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -86,15 +103,21 @@ public class Database {
                 delivery.id = cursor.getInt(0);
                 delivery.idUser = cursor.getInt(1);
                 delivery.DeliveryDate = cursor.getString(2);
-                delivery.DocID = cursor.getString(3);
-                delivery.SerialNumber = cursor.getString(4);
-                delivery.Client = cursor.getString(5);
-                delivery.Address = cursor.getString(6);
-                delivery.ContactDetails = cursor.getString(7);
-                delivery.NumberOfProducts = cursor.getString(8);
-                delivery.Task = cursor.getString(9);
-                delivery.Mileage = cursor.getString(10);
-                delivery.Status = cursor.getInt(11);
+                delivery.day = cursor.getInt(3);
+                delivery.month = cursor.getInt(4);
+                delivery.year = cursor.getInt(5);
+                delivery.DocID = cursor.getString(6);
+                delivery.SerialNumber = cursor.getString(7);
+                delivery.Client = cursor.getString(8);
+                delivery.Address = cursor.getString(9);
+                delivery.ContactDetails = cursor.getString(10);
+                delivery.NumberOfProducts = cursor.getString(11);
+                delivery.Task = cursor.getString(12);
+                delivery.Mileage = cursor.getString(13);
+                delivery.Status = cursor.getInt(14);
+                delivery.Summ = cursor.getInt(15);
+                delivery.lati = cursor.getString(16);
+                delivery.longi = cursor.getString(17);
                 deliveries.add(delivery);
             } while (cursor.moveToNext());
             return deliveries;

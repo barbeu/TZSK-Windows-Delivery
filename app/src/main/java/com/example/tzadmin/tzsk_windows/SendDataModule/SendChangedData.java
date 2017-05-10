@@ -42,10 +42,16 @@ public class SendChangedData extends SendData {
 
         @Override
         protected Integer doInBackground(String... params) {
-            Integer response = HttpRequest.post(helper.httpServer + helper.HTTP_QUERY_CHANGE_DATA)
-                    .basic(Auth.login, Auth.passwd)
-                    .send(params[0])
-                    .code();
+            Integer response = null;
+            try {
+                response = HttpRequest.post(helper.httpServer + helper.HTTP_QUERY_CHANGE_DATA)
+                        .basic(Auth.login, Auth.passwd)
+                        .send(params[0])
+                        .code();
+            } catch (Exception ex) {
+                return -1;
+            }
+
             return response;
         }
 

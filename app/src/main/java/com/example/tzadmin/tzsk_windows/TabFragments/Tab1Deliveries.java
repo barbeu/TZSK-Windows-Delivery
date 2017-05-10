@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
+import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,6 +26,12 @@ import com.github.kevinsawicki.http.HttpRequest;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
+import devs.mulham.horizontalcalendar.HorizontalCalendarView;
 
 /**
  * Created by tzadmin on 17.04.17.
@@ -35,6 +43,8 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     ListView lvMain;
     View rootView;
     ProgressBar progressBar;
+    String dateDelivery = null;
+    HorizontalCalendar horizontalCalendar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab1deliveries, container, false);
@@ -42,13 +52,33 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         lvMain = (ListView) rootView.findViewById(R.id.lvMain);
         lvMain.setOnItemClickListener(this);
 
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.WEEK_OF_MONTH, 1);
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.WEEK_OF_MONTH, -1);
+
+        horizontalCalendar = new HorizontalCalendar.Builder(rootView, R.id.calendarView)
+                .startDate(startDate.getTime())
+                .endDate(endDate.getTime())
+                .build();
+
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Date date, int position) {
+                dateDelivery = helper.Date(date);
+                reloadDeliveries();
+            }
+        });
+
         return rootView;
     }
 
     @Override
     public void onStart () {
         super.onStart();
-        reloadDeliveries();
+        Date date = new Date();
+        horizontalCalendar.selectDate(date, false);
     }
 
     @Override
@@ -71,24 +101,22 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         deliveries = JSON.parse(jsonStringDeliveries);
         TextView tv = (TextView) rootView.findViewById(R.id.tvMain);
 
-        if (deliveries == null) {
-            deliveries = Database.selectDeliveries(Auth.id);
-            if (deliveries == null) {
-                tv.setText(Auth.login + " на данный момент у вас нет доставок.");
-                return;
-            }
-            tv.setText("Здравствуйте! " + Auth.login);
-        } else {
+        if(deliveries != null)
             Database.insertDeliveries(deliveries, Auth.id);
-            deliveries = Database.selectDeliveries(Auth.id);
-            tv.setText("Здравствуйте! " + Auth.login);
+
+        deliveries = Database.selectDeliveries(Auth.id, dateDelivery);
+        if (deliveries == null) {
+            tv.setText(Auth.login + " на данный момент у вас нет доставок.");
+            lvMain.setAdapter(null);
+            return;
         }
+        tv.setText("Здравствуйте! " + Auth.login);
 
         boxAdapter = new BoxAdapter(rootView.getContext(), deliveries);
         lvMain.setAdapter(boxAdapter);
     }
 
-    class downloadDelivery extends AsyncTask<String, Void, String> {
+    class downloadDelivery extends AsyncTask<Void, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -98,10 +126,11 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(Void... params) {
 
             String JsonStringRequest =
-                    JSON.generateClients(Database.selectDeliveries(Auth.id));
+                    JSON.generateClients(
+                            Database.selectDeliveries(Auth.id, dateDelivery), dateDelivery);
 
             String result = null;
             try {
@@ -111,8 +140,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
                         .send(JsonStringRequest)
                         .stream()
                 );
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
                 return null;
             }
             return result;

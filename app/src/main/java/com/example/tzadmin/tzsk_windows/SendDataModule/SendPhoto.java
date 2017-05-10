@@ -45,14 +45,19 @@ public class SendPhoto extends SendData {
         @Override
         protected Integer doInBackground(ArrayList<Photo>... params) {
             ArrayList<Photo> photos = params[0];
-
-            HttpRequest request = HttpRequest.post(helper.httpServer + helper.HTTP_QUERY_SEND_PHOTO);
-            request.basic(Auth.login, Auth.passwd);
-            request.part("body", JSON.generateKeysPhoto(photos));
-            for (int i = 0; i < photos.size(); i++) {
-                request.part(
-                        photos.get(i).DocID + "&" + photos.get(i).SerialNumber,
-                        new File(photos.get(i).path));
+            HttpRequest request;
+            try {
+                request = HttpRequest.post(helper.httpServer + helper.HTTP_QUERY_SEND_PHOTO);
+                request.basic(Auth.login, Auth.passwd);
+                request.part("body", JSON.generateKeysPhoto(photos));
+                for (int i = 0; i < photos.size(); i++) {
+                    request.part(
+                            photos.get(i).DocID + "&" + photos.get(i).SerialNumber,
+                            new File(photos.get(i).path));
+                }
+            }
+            catch (Exception ex) {
+                return -1;
             }
             //request.connectTimeout(5000);
             return request.code();

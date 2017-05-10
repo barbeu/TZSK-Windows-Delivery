@@ -19,12 +19,14 @@ import com.example.tzadmin.tzsk_windows.Location.MyLocation;
 import com.example.tzadmin.tzsk_windows.SendDataModule.SendChangedData;
 import com.example.tzadmin.tzsk_windows.SendDataModule.SendPhoto;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab1Deliveries;
+import com.example.tzadmin.tzsk_windows.TabFragments.Tab2Statuses;
 
 public class MainActivity extends AppCompatActivity  {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private Tab1Deliveries tabDeliveries;
+    private Tab2Statuses tabStatuses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity  {
         tabLayout.setupWithViewPager(mViewPager);
 
         tabDeliveries = new Tab1Deliveries();
+        tabStatuses = new Tab2Statuses();
     }
 
     @Override
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity  {
                 starActivity(LoginActivity.class);
                 break;
             case R.id.btn_refresh:
-                tabDeliveries.reloadDeliveries();
+                //tabDeliveries.reloadDeliveries();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity  {
                 case 0:
                     return tabDeliveries;
                 case 1:
-                    return null;
+                    return tabStatuses;
                 case 2:
                     return null;
                 default:
@@ -99,7 +102,7 @@ public class MainActivity extends AppCompatActivity  {
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
 
         @Override

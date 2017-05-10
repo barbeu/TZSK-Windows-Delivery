@@ -24,7 +24,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table tbDeliveries ("
                 + "id integer primary key autoincrement,"
                 + "idUser integer,"
-                + "DeliveryDate date,"
+                + "DeliveryDate text,"
+                + "day integer,"
+                + "month integer,"
+                + "year integer,"
                 + "DocID text,"
                 + "SerialNumber text,"
                 + "Client text,"
@@ -35,6 +38,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "Mileage text,"
                 + "ChangedData integer,"
                 + "Summ integer,"
+                + "lat text,"
+                + "long text,"
                 + "FOREIGN KEY (idUser) REFERENCES tbUsers(id)" + ");");
 
         db.execSQL("create table tbChangedStatus ("
@@ -44,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "SerialNumber text,"
                 + "Status integer,"
                 + "Summ integer,"
-                + "Date date" + ");");
+                + "Date text" + ");");
 
         db.execSQL("create table tbPhotos ("
                 + "id integer primary key autoincrement,"

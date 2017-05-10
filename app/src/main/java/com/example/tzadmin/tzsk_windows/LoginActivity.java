@@ -126,9 +126,14 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         @Override
         protected Integer doInBackground(String... params) {
 
-            return HttpRequest.get(helper.httpServer + helper.HTTP_QUERY_AUTH)
-                    .basic(params[0], params[1])
-                    .code();
+            try {
+                return HttpRequest.get(helper.httpServer + helper.HTTP_QUERY_AUTH)
+                        .basic(params[0], params[1])
+                        .code();
+            } catch (Exception ex) {
+                return -1;
+            }
+
         }
         protected void onPostExecute (Integer result) {
             setHttpResp(result);

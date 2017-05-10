@@ -4,11 +4,13 @@ import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
+import com.example.tzadmin.tzsk_windows.helper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by tzadmin on 15.04.17.
@@ -28,6 +30,12 @@ public class JSON {
                 Delivery delivery = new Delivery();
                 delivery.idUser = Auth.id;
                 delivery.DeliveryDate = order.getString("DeliveryDate");
+                //date to day - month - year
+                String date = delivery.DeliveryDate;
+                delivery.year = helper.getYear(date);
+                delivery.month = helper.getMonth(date);
+                delivery.day = helper.getDay(date);
+                //
                 delivery.DocID = order.getString("DocID");
                 delivery.SerialNumber = order.getString("SerialNumber");
                 delivery.Client = order.getString("Client");
@@ -38,6 +46,8 @@ public class JSON {
                 delivery.Mileage = order.getString("Mileage");
                 delivery.Status = order.getInt("Status");
                 delivery.Summ = order.getInt("Summ");
+                delivery.lati = order.getString("Latitude");
+                delivery.longi = order.getString("Longitude");
                 deliveries.add(delivery);
             }
         } catch (JSONException e) {
@@ -46,26 +56,41 @@ public class JSON {
         return deliveries;
     }
 
-    public static String generateClients (ArrayList<Delivery> deliveries) {
-        if(deliveries == null)
-            return "";
-        JSONObject dataJsonObj = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        String res = null;
-        try {
-            for (int i = 0; i < deliveries.size(); i++) {
-                JSONArray array = new JSONArray();
-                array.put(deliveries.get(i).DocID.toString());
-                array.put(deliveries.get(i).SerialNumber.toString());
-                jsonArray.put(array);
+    public static String generateClients (ArrayList<Delivery> deliveries, String date) {
+        if(deliveries == null) {
+            JSONObject dataJsonObj = new JSONObject();
+            JSONArray arrayDate = new JSONArray();
+            arrayDate.put(date);
+            try {
+                dataJsonObj.put("Date", arrayDate);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return "";
             }
-            dataJsonObj.put("arrayOfClients", jsonArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return "";
+            return dataJsonObj.toString();
+        } else {
+            JSONObject dataJsonObj = new JSONObject();
+            JSONArray jsonArray = new JSONArray();
+            String res = null;
+            try {
+                for (int i = 0; i < deliveries.size(); i++) {
+                    JSONArray array = new JSONArray();
+                    array.put(deliveries.get(i).DocID.toString());
+                    array.put(deliveries.get(i).SerialNumber.toString());
+                    jsonArray.put(array);
+                }
+                JSONArray arrayDate = new JSONArray();
+                arrayDate.put(date);
+
+                dataJsonObj.put("Date", arrayDate);
+                dataJsonObj.put("arrayOfClients", jsonArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return "";
+            }
+            res = dataJsonObj.toString();
+            return res;
         }
-        res = dataJsonObj.toString();
-        return res;
     }
 
     public static String generateChangedData (ArrayList<ChangedData> statuses) {

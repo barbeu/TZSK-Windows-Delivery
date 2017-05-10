@@ -104,12 +104,15 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
                 break;
             case R.id.btn_deliv_geo:
                 if(MyLocation.Longitude != null && MyLocation.Latitude != null) {
-                    if(helper.InetHasConnection(this)) {
-                        Intent intentGeo = new Intent(this, MapsActivity.class);
-                        intentGeo.putExtra("id", idDelivery);
-                        startActivity(intentGeo);
+                    if(!delivery.longi.equals("0") && !delivery.lati.equals("0")) {
+                        if (helper.InetHasConnection(this)) {
+                            Intent intentGeo = new Intent(this, MapsActivity.class);
+                            intentGeo.putExtra("id", idDelivery);
+                            startActivity(intentGeo);
+                        } else
+                            helper.message(this, helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_SHORT);
                     } else
-                        helper.message(this, helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_SHORT);
+                        helper.message(this, helper.MSG.ERROR_COORDINATE_ADDRESS, Toast.LENGTH_SHORT);
                 } else
                     helper.message(this, helper.MSG.POWER_SEND_GEODATA, Toast.LENGTH_SHORT);
                 break;

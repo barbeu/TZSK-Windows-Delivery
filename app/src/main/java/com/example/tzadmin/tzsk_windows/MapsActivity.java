@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
@@ -58,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         String position = MyLocation.Latitude + "," + MyLocation.Longitude;
-        String destination = "54.2087361,37.661695";
+        String destination = delivery.lati + "," + delivery.longi;
         new get().execute(position, destination);
     }
 
@@ -94,7 +96,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else if (i == result.size() - 1) {
                     MarkerOptions endMarkerOptions = new MarkerOptions()
                             .position(result.get(i))
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_end_loc));
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_end_loc))
+                            .title(delivery.Address);
                     mMap.addMarker(endMarkerOptions);
                 }
                 line.add(result.get(i));
