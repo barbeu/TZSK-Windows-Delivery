@@ -51,9 +51,9 @@ public class BoxAdapter extends BaseAdapter {
 
         Delivery p = getProduct(position);
 
-        ((TextView) view.findViewById(R.id.delivery_client)).setText(p.SerialNumber + " - " + p.Client);
-        String date = p.DeliveryDate;
-        ((TextView) view.findViewById(R.id.delivery_date)).setText(date.substring(0,10));
+        ((TextView) view.findViewById(R.id.delivery_client)).setText(p.Client);
+        ((TextView) view.findViewById(R.id.delivery_serialNumber)).setText(p.SerialNumber);
+
         return view;
     }
 

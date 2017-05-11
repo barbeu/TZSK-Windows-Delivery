@@ -22,10 +22,6 @@ import com.example.tzadmin.tzsk_windows.R;
 import com.example.tzadmin.tzsk_windows.helper;
 import com.github.kevinsawicki.http.HttpRequest;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import devs.mulham.horizontalcalendar.HorizontalCalendar;
-import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 
 /**
  * Created by tzadmin on 17.04.17.
@@ -38,7 +34,6 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     View rootView;
     ProgressBar progressBar;
     String dateDelivery = null;
-    HorizontalCalendar horizontalCalendar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab1deliveries, container, false);
@@ -46,33 +41,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         lvMain = (ListView) rootView.findViewById(R.id.lvMain);
         lvMain.setOnItemClickListener(this);
 
-        Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.WEEK_OF_MONTH, 2);
-
-        Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.WEEK_OF_MONTH, -1);
-
-        horizontalCalendar = new HorizontalCalendar.Builder(rootView, R.id.calendarView)
-                .startDate(startDate.getTime())
-                .endDate(endDate.getTime())
-                .build();
-
-        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
-            @Override
-            public void onDateSelected(Date date, int position) {
-                dateDelivery = helper.Date(date);
-                reloadDeliveries();
-            }
-        });
-
         return rootView;
-    }
-
-    @Override
-    public void onStart () {
-        super.onStart();
-        Date date = new Date();
-        horizontalCalendar.selectDate(date, false);
     }
 
     @Override
@@ -84,10 +53,13 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         startActivity(intent);
     }
 
-    public void reloadDeliveries() {
+    public void reloadDeliveries(String date) {
+        if(date.equals("")) return;
+        if(date == null) return;
         if(!helper.InetHasConnection(getActivity()))
             helper.message(getActivity(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
 
+        dateDelivery = date;
         new downloadDelivery().execute();
     }
 
@@ -100,7 +72,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
 
         deliveries = Database.selectDeliveries(Auth.id, dateDelivery);
         if (deliveries == null) {
-            tv.setText(Auth.login + " на данный момент у вас нет доставок.");
+            tv.setText(Auth.login + " на этот день у вас нет доставок.");
             lvMain.setAdapter(null);
             return;
         }

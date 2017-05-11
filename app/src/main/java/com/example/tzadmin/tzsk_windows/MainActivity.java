@@ -11,8 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.Location.MyLocation;
@@ -20,6 +18,10 @@ import com.example.tzadmin.tzsk_windows.SendDataModule.SendChangedData;
 import com.example.tzadmin.tzsk_windows.SendDataModule.SendPhoto;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab1Deliveries;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab2Statuses;
+import java.util.Calendar;
+import java.util.Date;
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity  {
     private ViewPager mViewPager;
     private Tab1Deliveries tabDeliveries;
     private Tab2Statuses tabStatuses;
+    HorizontalCalendar horizontalCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity  {
 
         tabDeliveries = new Tab1Deliveries();
         tabStatuses = new Tab2Statuses();
+
+        initializeCalendar();
     }
 
     @Override
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onStart();
         new SendPhoto(this);
         new SendChangedData(this);
+        horizontalCalendar.selectDate(new Date(), false);
     }
 
     @Override
@@ -69,10 +75,31 @@ public class MainActivity extends AppCompatActivity  {
                 starActivity(LoginActivity.class);
                 break;
             case R.id.btn_refresh:
-                tabDeliveries.onStart();
+                tabDeliveries.reloadDeliveries(
+                        helper.Date(horizontalCalendar.getSelectedDate()));
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initializeCalendar() {
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.WEEK_OF_MONTH, 2);
+
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.WEEK_OF_MONTH, -1);
+
+        horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
+                .startDate(startDate.getTime())
+                .endDate(endDate.getTime())
+                .build();
+
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Date date, int position) {
+                tabDeliveries.reloadDeliveries(helper.Date(date));
+            }
+        });
     }
 
     private void starActivity (Class _class) {
