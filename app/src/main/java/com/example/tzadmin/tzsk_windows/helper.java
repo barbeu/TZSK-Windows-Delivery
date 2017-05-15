@@ -30,6 +30,11 @@ public class helper {
     public static final int INDEX_STATUS_CANCEL = 3;
     public static final int INDEX_STATUS_WAITING = 4;
 
+    /*enum position global status "Начать Работа", "Закончить Разгрузку", "Закончить Работу"*/
+    public static final int INDEX_STATUS_GET_STARTED = 0;
+    public static final int INDEX_STATUS_FINISH_UNLOADING = 1;
+    public static final int INDEX_STATUS_FINISH_WORK = 2;
+
     /*enum codes resp server*/
     public static final int CODE_RESP_SERVER_OK = 200;
     public static final int CODE_RESP_SERVER_AUTH_ERROR = 401;
@@ -43,6 +48,8 @@ public class helper {
     public static final int HTTP_PARAM_POST_DATA = 3;
 
     /*enum http query*/
+    public static final String HTTP_QUERY_GET_STATUS_PARAM = "param=getStatusParam";
+    public static final String HTTP_QUERY_SEND_GLOBAL_STATUS = "param=changeGlobalData";
     public static final String HTTP_QUERY_SEND_PHOTO = "param=photo";
     public static final String HTTP_QUERY_CHANGE_DATA = "param=changeData";
     public static final String HTTP_QUERY_AUTH = "param=auth";
@@ -77,6 +84,9 @@ public class helper {
             case ERROR_COORDINATE_ADDRESS:
                 message = "Неправильный адрес доставки.";
                 break;
+            case ERROR_ODMTR_VALUE_NULLABLE:
+                message = "Для окончания работы необходимо ввести значение одометра.";
+                break;
         }
         Toast toast = Toast.makeText(context, message, length);
         toast.show();
@@ -90,11 +100,11 @@ public class helper {
         INCORRECT_RESP_SERVER_DATA,
         INCORRECT_SPINNER_ITEM,
         POWER_SEND_GEODATA,
-        ERROR_COORDINATE_ADDRESS
+        ERROR_COORDINATE_ADDRESS,
+        ERROR_ODMTR_VALUE_NULLABLE,
     }
 
-    public static boolean InetHasConnection(final Context context)
-    {
+    public static boolean InetHasConnection(final Context context) {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         if (wifiInfo != null && wifiInfo.isConnected()) {

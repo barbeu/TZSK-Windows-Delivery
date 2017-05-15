@@ -1,12 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="0dp"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="0dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="1dp"
     tools:context="com.example.tzadmin.tzsk_windows.MainActivity">
 
-</LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ProgressBar
+                android:id="@+id/pb_tab2status"
+                style="@android:style/Widget.Holo.Light.ProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="0.10" />
+
+            <Switch
+            android:id="@+id/switch_getStarted"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_getStarted"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Switch
+            android:id="@+id/switch_finishUnloading"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_finishUnloading"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/switch_getStarted"
+            android:layout_alignRight="@+id/switch_getStarted"
+            android:layout_alignEnd="@+id/switch_getStarted" />
+
+        <Switch
+            android:id="@+id/switch_finishWork"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_finishWork"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/switch_finishUnloading"
+            android:layout_alignRight="@+id/switch_finishUnloading"
+            android:layout_alignEnd="@+id/switch_finishUnloading" />
+
+        <TextView
+            android:id="@+id/tb_status_odmtr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/tb_status_mileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/tb_status_mile_odmtr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/tb_status_driverOdmtr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tb_status_valueOdmtr"
+            android:layout_marginTop="40dp"
+            android:layout_above="@+id/editText"
+            android:layout_alignLeft="@+id/editText"
+            android:layout_alignStart="@+id/editText" />
+
+        <EditText
+            android:id="@+id/et_status_valueOdmtr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"/>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

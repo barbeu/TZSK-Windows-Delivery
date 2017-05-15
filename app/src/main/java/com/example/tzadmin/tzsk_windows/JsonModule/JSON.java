@@ -4,6 +4,7 @@ import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.StatusParam;
 import com.example.tzadmin.tzsk_windows.helper;
 
 import org.json.JSONArray;
@@ -18,7 +19,7 @@ import java.util.Date;
 
 public class JSON {
 
-    public static ArrayList<Delivery> parse (String json) {
+    public static ArrayList<Delivery> parseDeliveries (String json) {
         if(json == null)
             return null;
         ArrayList<Delivery> deliveries = new ArrayList<>();
@@ -54,6 +55,24 @@ public class JSON {
             return null;
         }
         return deliveries;
+    }
+
+    public static StatusParam parseStatusParam (String json) {
+        if(json == null)
+            return null;
+        StatusParam statusParam = new StatusParam();
+        try {
+            JSONObject dataJsonObj = new JSONObject(json);
+            JSONArray orders = dataJsonObj.getJSONArray("arrayOfStatusParam");
+            JSONObject order = orders.getJSONObject(0);
+            statusParam.idUser = Auth.id;
+            statusParam.DocID = order.getString("DocID");
+            statusParam.AllMileage = order.getInt("AllMileage");
+            statusParam.AllOdmtr = order.getInt("AllOdmtr");
+        } catch (JSONException e) {
+            return null;
+        }
+        return statusParam;
     }
 
     public static String generateClients (ArrayList<Delivery> deliveries, String date) {
@@ -93,7 +112,7 @@ public class JSON {
         }
     }
 
-    public static String generateChangedData (ArrayList<ChangedData> statuses) {
+    public static String generateNoGlobalStatus (ArrayList<ChangedData> statuses) {
         if(statuses == null)
             return null;
 
@@ -119,6 +138,32 @@ public class JSON {
         return res;
     }
 
+    public static String generateGlobalStatus (ArrayList<ChangedData> statuses) {
+        if(statuses == null)
+            return null;
+
+        JSONObject dataJsonObj = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        String res = null;
+        try {
+            for (int i = 0; i < statuses.size(); i++){
+                JSONArray array = new JSONArray();
+                array.put(statuses.get(i).DocID.toString());
+                array.put(String.valueOf(statuses.get(i).Status));
+                if(statuses.get(i).summ != -1)
+                    array.put(statuses.get(i).summ);
+                array.put(statuses.get(i).Date.toString());
+                jsonArray.put(array);
+            }
+            dataJsonObj.put("arrayOfGlobalData", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        res = dataJsonObj.toString();
+        return res;
+    }
+
     public static String generateKeysPhoto(ArrayList<Photo> photos) {
         JSONObject dataJsonObj = new JSONObject();
         JSONArray jsonArray = new JSONArray();
@@ -128,6 +173,20 @@ public class JSON {
                 jsonArray.put(photo.DocID + "&" + photo.SerialNumber);
             }
             dataJsonObj.put("arrayOfKey", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        result = dataJsonObj.toString();
+        return result;
+    }
+
+    public static String generateStatusParam (String DocID) {
+        JSONObject dataJsonObj = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        String result = null;
+        try {
+            jsonArray.put(DocID);
+            dataJsonObj.put("arrayOfDocID", jsonArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }

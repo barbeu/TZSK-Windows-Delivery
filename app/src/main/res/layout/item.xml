@@ -4,36 +4,56 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/delivery_serialNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="8dp"
+                android:text=""
+                android:textColor="@color/colorBlackStar"
+                android:textSize="20sp"></TextView>
+
+            <TextView
+                android:id="@+id/delivery_client"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textAlignment="gravity"
+                android:textSize="17sp"></TextView>
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/delivery_serialNumber"
-            android:textAlignment="center"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="12dp"
+            android:id="@+id/delivery_mileage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="40dp"
-            android:text=""
-            android:textColor="@color/colorBlackStar"
-            android:textSize="25sp">
-        </TextView>
-        <TextView
-            android:id="@+id/delivery_client"
-            android:textAlignment="gravity"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="10dp"
-            android:text=""
-            android:textSize="17sp">
-        </TextView>
+            android:layout_marginTop="8dp"
+            android:gravity="right"
+            android:textColor="@color/colorAccent"
+            android:textSize="13sp"></TextView>
     </LinearLayout>
 </LinearLayout>

@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("create table tbChangedStatus ("
                 + "id integer primary key autoincrement,"
                 + "idUser integer,"
+                + "isGlobal integer,"
                 + "DocID text,"
                 + "SerialNumber text,"
                 + "Status integer,"
@@ -57,6 +58,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "DocID text,"
                 + "SerialNumber text,"
                 + "PathPhoto text" + ");");
+
+        db.execSQL("create table tbStatusParam ("
+                + "id integer primary key autoincrement,"
+                + "idUser integer,"
+                + "DocID text,"
+                + "AllMileage integer,"
+                + "AllOdmtr integer" + ");");
     }
 
     @Override

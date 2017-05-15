@@ -147,6 +147,7 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
 
             ChangedData data = new ChangedData();
             data.idUser = Auth.id;
+            data.isGlobal = 0;
             data.SerialNumber = delivery.SerialNumber;
             data.DocID = delivery.DocID;
             data.Status = delivery.Status;

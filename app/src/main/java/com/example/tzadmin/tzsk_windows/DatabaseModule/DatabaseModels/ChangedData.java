@@ -7,6 +7,7 @@ package com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels;
 public class ChangedData {
     public int id;
     public int idUser;
+    public int isGlobal;
     public String DocID;
     public String SerialNumber;
     public int Status;

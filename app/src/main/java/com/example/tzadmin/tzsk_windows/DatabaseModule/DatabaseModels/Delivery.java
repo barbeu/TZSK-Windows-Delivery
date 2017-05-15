@@ -23,5 +23,4 @@ public class Delivery {
     public int Summ;
     public String lati;
     public String longi;
-
 }

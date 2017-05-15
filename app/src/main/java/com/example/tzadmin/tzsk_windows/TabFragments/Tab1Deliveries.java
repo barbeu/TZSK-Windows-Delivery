@@ -64,11 +64,12 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     }
 
     private void refreshDeliveries (String jsonStringDeliveries) {
-        deliveries = JSON.parse(jsonStringDeliveries);
+        deliveries = JSON.parseDeliveries(jsonStringDeliveries);
         TextView tv = (TextView) rootView.findViewById(R.id.tvMain);
 
-        if(deliveries != null)
+        if(deliveries != null) {
             Database.insertDeliveries(deliveries, Auth.id);
+        }
 
         deliveries = Database.selectDeliveries(Auth.id, dateDelivery);
         if (deliveries == null) {

@@ -3,7 +3,7 @@ package com.example.tzadmin.tzsk_windows.SendDataModule;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
-import com.example.tzadmin.tzsk_windows.AbstractSendData.SendData;
+import com.example.tzadmin.tzsk_windows.SendDataModule.AbstractSendData.SendData;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseHelper;
@@ -22,12 +22,7 @@ import java.util.ArrayList;
 public class SendPhoto extends SendData {
 
     public SendPhoto(Context context) {
-        if (!helper.InetHasConnection(context))
-            return;
-        DatabaseHelper dbHelper = new DatabaseHelper(context);
-        Database.SetUp(dbHelper.getReadableDatabase());
-
-        ObserverData(Database.selectPhoto(Auth.id));
+        super(context);
     }
 
     @Override

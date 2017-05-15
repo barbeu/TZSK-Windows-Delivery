@@ -3,13 +3,13 @@ package com.example.tzadmin.tzsk_windows.DatabaseModule;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
+import android.support.annotation.Nullable;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.StatusParam;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.User;
 import com.example.tzadmin.tzsk_windows.helper;
-
 import java.util.ArrayList;
 
 /**
@@ -60,6 +60,7 @@ public class Database {
         db.delete("tbDeliveries", null, null);
     }
 
+    @Nullable
     public static Delivery selectDelivery (int id, int user_id) {
         Cursor cursor = db.query("tbDeliveries", null, "id=" + id + " AND idUser=" + user_id, null, null, null, null, null);
         Delivery delivery = new Delivery();
@@ -89,6 +90,7 @@ public class Database {
 
     }
 
+    @Nullable
     public static ArrayList<Delivery> selectDeliveries(int user_id, String date) {
         Cursor cursor = db.query("tbDeliveries", null,
                 "idUser = " + user_id +
@@ -126,6 +128,25 @@ public class Database {
             return null;
     }
 
+    @Nullable
+    public static String selectDocIDOnDate(int user_id, String date) {
+        Cursor cursor = db.query("tbDeliveries", null,
+                "idUser = " + user_id +
+                        " AND day =" + helper.getDay(date) +
+                        " AND month =" + helper.getMonth(date) +
+                        " AND year =" + helper.getYear(date),
+                null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            Delivery delivery = new Delivery();
+            delivery.DocID = cursor.getString(
+                    cursor.getColumnIndex("DocID")
+            );
+            return delivery.DocID;
+        }
+        else
+            return null;
+    }
+
     public static int insertUser (String login, String password) {
         ContentValues cv = new ContentValues();
         cv.put("login", login);
@@ -156,6 +177,7 @@ public class Database {
         db.delete("tbUsers", "id=" + id, null);
     }
 
+    @Nullable
     public static User lastUserLogin () {
         Cursor cursor = db.query("tbUsers", null, "autoLogin=1", null, null, null, null, "1");
         if(cursor.getCount() == 0)
@@ -175,6 +197,7 @@ public class Database {
         ContentValues cv = new ContentValues();
         cv.put("idUser", data.idUser);
         cv.put("DocID", data.DocID);
+        cv.put("isGlobal", data.isGlobal);
         cv.put("SerialNumber", data.SerialNumber);
         cv.put("Status", data.Status);
         cv.put("Summ", data.summ);
@@ -182,19 +205,30 @@ public class Database {
         db.insert("tbChangedStatus", null, cv);
     }
 
-    public static ArrayList<ChangedData> selectDataChanged (int user_id) {
-        Cursor cursor = db.query("tbChangedStatus", null, "idUser = " + user_id, null, null, null, null, null);
+    @Nullable
+    public static ArrayList<ChangedData> selectDataChanged (int user_id, int isGlobal) {
+        Cursor cursor = db.query(
+                "tbChangedStatus",
+                null,
+                "idUser = " + user_id + " AND isGlobal = " + (isGlobal == 0 ? 0 : 1),
+                null,
+                null,
+                null,
+                null,
+                null
+        );
         ArrayList<ChangedData> Data = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 ChangedData data = new ChangedData();
                 data.id = cursor.getInt(0);
                 data.idUser = cursor.getInt(1);
-                data.DocID = cursor.getString(2);
-                data.SerialNumber = cursor.getString(3);
-                data.Status = cursor.getInt(4);
-                data.summ = cursor.getInt(5);
-                data.Date = cursor.getString(6);
+                data.isGlobal = cursor.getInt(2);
+                data.DocID = cursor.getString(3);
+                data.SerialNumber = cursor.getString(4);
+                data.Status = cursor.getInt(5);
+                data.summ = cursor.getInt(6);
+                data.Date = cursor.getString(7);
                 Data.add(data);
             } while (cursor.moveToNext());
             return Data;
@@ -203,8 +237,12 @@ public class Database {
             return null;
     }
 
-    public static void deleteDataChanged (int user_id) {
-        db.delete("tbChangedStatus", "idUser =" + user_id, null);
+    public static void deleteDataChanged (int user_id, int isGlobal) {
+        db.delete(
+                "tbChangedStatus",
+                "idUser =" + user_id + " AND isGlobal =" + (isGlobal == 0 ? 0 : 1),
+                null
+        );
     }
 
     public static void insertPhoto (Photo photo) {
@@ -218,6 +256,7 @@ public class Database {
         db.insert("tbPhotos", null, cv);
     }
 
+    @Nullable
     public static ArrayList<Photo> selectPhoto (int user_id) {
         Cursor cursor = db.query("tbPhotos", null, "idUser = " + user_id, null, null, null, null, null);
         ArrayList<Photo> photos = new ArrayList<>();
@@ -240,5 +279,44 @@ public class Database {
     public static void deletePhoto (int user_id) {
         db.delete("tbPhotos",
                 "idUser =" + user_id, null);
+    }
+
+    public static void insertStatusParam (StatusParam param) {
+        if(param == null)
+            return;
+        ContentValues cv = new ContentValues();
+        cv.put("idUser", param.idUser);
+        cv.put("DocID", param.DocID);
+        cv.put("AllMileage", param.AllMileage);
+        cv.put("AllOdmtr", param.AllOdmtr);
+        db.insert("tbPhotos", null, cv);
+    }
+
+    @Nullable
+    public static StatusParam selectStatusParam (int user_id, String DocID) {
+        Cursor cursor = db.query("tbPhotos",
+                null,
+                "idUser = " + user_id + " AND DocID = ?",
+                new String[] { DocID },
+                null, null, null, null);
+        if (cursor.moveToFirst()) {
+            StatusParam statusParam = new StatusParam();
+            statusParam.id = cursor.getInt(0);
+            statusParam.idUser = cursor.getInt(1);
+            statusParam.DocID = cursor.getString(2);
+            statusParam.AllMileage = cursor.getInt(3);
+            statusParam.AllOdmtr = cursor.getInt(4);
+            return statusParam;
+        }
+        else
+            return null;
+    }
+
+    public static void deleteStatusParam (int user_id, String DocID) {
+        db.delete(
+                "tbPhotos",
+                "idUser =" + user_id + " AND" + DocID,
+                new String[] { DocID }
+        );
     }
 }

@@ -53,6 +53,7 @@ public class BoxAdapter extends BaseAdapter {
 
         ((TextView) view.findViewById(R.id.delivery_client)).setText(p.Client);
         ((TextView) view.findViewById(R.id.delivery_serialNumber)).setText(p.SerialNumber);
+        ((TextView) view.findViewById(R.id.delivery_mileage)).setText(p.Mileage + " км.");
 
         return view;
     }

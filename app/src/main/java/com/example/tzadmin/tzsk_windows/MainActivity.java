@@ -14,7 +14,8 @@ import android.view.MenuItem;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.Location.MyLocation;
-import com.example.tzadmin.tzsk_windows.SendDataModule.SendChangedData;
+import com.example.tzadmin.tzsk_windows.SendDataModule.GlobalData;
+import com.example.tzadmin.tzsk_windows.SendDataModule.NoGlobalData;
 import com.example.tzadmin.tzsk_windows.SendDataModule.SendPhoto;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab1Deliveries;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab2Statuses;
@@ -50,13 +51,15 @@ public class MainActivity extends AppCompatActivity  {
         tabStatuses = new Tab2Statuses();
 
         initializeCalendar();
+
     }
 
     @Override
     public void onStart () {
         super.onStart();
         new SendPhoto(this);
-        new SendChangedData(this);
+        new GlobalData(this);
+        new NoGlobalData(this);
         horizontalCalendar.selectDate(new Date(), false);
     }
 
@@ -98,6 +101,9 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onDateSelected(Date date, int position) {
                 tabDeliveries.reloadDeliveries(helper.Date(date));
+                tabStatuses.reloadStatuses(
+                        Database.selectDocIDOnDate(Auth.id, helper.Date(date)
+                        ));
             }
         });
     }
@@ -128,9 +134,7 @@ public class MainActivity extends AppCompatActivity  {
         }
 
         @Override
-        public int getCount() {
-            return 2;
-        }
+        public int getCount() { return 2; }
 
         @Override
         public CharSequence getPageTitle(int position) {
