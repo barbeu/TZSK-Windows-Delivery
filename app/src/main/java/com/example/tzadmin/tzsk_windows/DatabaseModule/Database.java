@@ -135,7 +135,7 @@ public class Database {
                         " AND day =" + helper.getDay(date) +
                         " AND month =" + helper.getMonth(date) +
                         " AND year =" + helper.getYear(date),
-                null, null, null, null, null);
+                null, null, null, null, "1");
         if (cursor.moveToFirst()) {
             Delivery delivery = new Delivery();
             delivery.DocID = cursor.getString(
@@ -289,12 +289,12 @@ public class Database {
         cv.put("DocID", param.DocID);
         cv.put("AllMileage", param.AllMileage);
         cv.put("AllOdmtr", param.AllOdmtr);
-        db.insert("tbPhotos", null, cv);
+        db.insert("tbStatusParam", null, cv);
     }
 
     @Nullable
     public static StatusParam selectStatusParam (int user_id, String DocID) {
-        Cursor cursor = db.query("tbPhotos",
+        Cursor cursor = db.query("tbStatusParam",
                 null,
                 "idUser = " + user_id + " AND DocID = ?",
                 new String[] { DocID },
@@ -314,7 +314,7 @@ public class Database {
 
     public static void deleteStatusParam (int user_id, String DocID) {
         db.delete(
-                "tbPhotos",
+                "tbStatusParam",
                 "idUser =" + user_id + " AND" + DocID,
                 new String[] { DocID }
         );

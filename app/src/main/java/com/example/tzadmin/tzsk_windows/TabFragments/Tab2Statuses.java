@@ -48,7 +48,7 @@ public class Tab2Statuses extends Fragment {
     private void initializeComponents(View root) {
         tb_odmtr = (TextView) root.findViewById(R.id.tb_status_odmtr);
         tb_mileage = (TextView) root.findViewById(R.id.tb_status_mileage);
-        tb_mileOdmtr = (TextView) root.findViewById(R.id.tb_status_driverOdmtr);
+        tb_mileOdmtr = (TextView) root.findViewById(R.id.tb_status_mile_odmtr);
         et_valueOdmtr = (EditText) root.findViewById(R.id.et_status_valueOdmtr);
         getStartedSwitch = (Switch) root.findViewById(R.id.switch_getStarted);
         finishUnloadingSwitch = (Switch) root.findViewById(R.id.switch_finishUnloading);
@@ -125,13 +125,13 @@ public class Tab2Statuses extends Fragment {
             return;
         }
         tb_mileage.setText("Text - " + statusParam.AllMileage);
-        tb_mileOdmtr.setText("Text - " + statusParam.AllOdmtr);
-        tb_odmtr.setText("Text - " + (statusParam.AllMileage + statusParam.AllOdmtr));
+        tb_odmtr.setText("Text - " + statusParam.AllOdmtr);
+        tb_mileOdmtr.setText("Text - " + (statusParam.AllMileage + statusParam.AllOdmtr));
     }
 
     public void reloadStatuses (String DocID) {
-        if(DocID.equals("")) return;
         if(DocID == null) return;
+        if(DocID.toString().equals("")) return;
         if(!helper.InetHasConnection(getActivity()))
             helper.message(getActivity(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
 

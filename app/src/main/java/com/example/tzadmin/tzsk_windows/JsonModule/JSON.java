@@ -193,4 +193,19 @@ public class JSON {
         result = dataJsonObj.toString();
         return result;
     }
+
+    public static String parseDocID (String json) {
+        if(json == null)
+            return null;
+        Delivery delivery = new Delivery();
+        try {
+            JSONObject dataJsonObj = new JSONObject(json);
+            JSONArray orders = dataJsonObj.getJSONArray("arrayOfClients");
+            JSONObject order = orders.getJSONObject(0);
+            delivery.DocID = order.getString("DocID");
+        } catch (JSONException e) {
+            return null;
+        }
+        return delivery.DocID;
+    }
 }

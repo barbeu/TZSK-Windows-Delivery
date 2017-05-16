@@ -30,10 +30,10 @@ import java.util.ArrayList;
 public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickListener {
     ArrayList<Delivery> deliveries;
     BoxAdapter boxAdapter;
-    ListView lvMain;
+    public ListView lvMain;
     View rootView;
-    ProgressBar progressBar;
-    String dateDelivery = null;
+    public ProgressBar progressBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab1deliveries, container, false);
@@ -53,17 +53,17 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         startActivity(intent);
     }
 
-    public void reloadDeliveries(String date) {
-        if(date.equals("")) return;
+    /*public void reloadDeliveries(String date) {
         if(date == null) return;
+        if(date.equals("")) return;
         if(!helper.InetHasConnection(getActivity()))
             helper.message(getActivity(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
 
         dateDelivery = date;
         new downloadDelivery().execute();
-    }
+    }*/
 
-    private void refreshDeliveries (String jsonStringDeliveries) {
+    public void refreshDeliveries (String jsonStringDeliveries, String dateDelivery) {
         deliveries = JSON.parseDeliveries(jsonStringDeliveries);
         TextView tv = (TextView) rootView.findViewById(R.id.tvMain);
 
@@ -81,45 +81,6 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
 
         boxAdapter = new BoxAdapter(rootView.getContext(), deliveries);
         lvMain.setAdapter(boxAdapter);
-    }
-
-    class downloadDelivery extends AsyncTask<Void, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            lvMain.setVisibility(View.INVISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            String JsonStringRequest =
-                    JSON.generateClients(
-                            Database.selectDeliveries(Auth.id, dateDelivery), dateDelivery);
-
-            String result = null;
-            try {
-                result = helper.streamToString(
-                        HttpRequest.post(helper.httpServer + helper.HTTP_QUERY_GETORDERS)
-                        .basic(Auth.login, Auth.passwd)
-                        .send(JsonStringRequest)
-                        .stream()
-                );
-            } catch (Exception e) {
-                return null;
-            }
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            refreshDeliveries(result);
-            progressBar.setVisibility(View.INVISIBLE);
-            lvMain.setVisibility(View.VISIBLE);
-        }
     }
 }
 
