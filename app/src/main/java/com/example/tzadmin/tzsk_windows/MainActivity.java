@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity  {
     private ViewPager mViewPager;
     private Tab1Deliveries tabDeliveries;
     private Tab2Statuses tabStatuses;
+    private Date date = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,14 @@ public class MainActivity extends AppCompatActivity  {
 
         tabDeliveries = new Tab1Deliveries();
         tabStatuses = new Tab2Statuses();
+    }
+
+    public Date getDate () {
+        return this.date;
+    }
+
+    public void setDate (Date date) {
+        this.date = date;
     }
 
     @Override
@@ -82,8 +91,8 @@ public class MainActivity extends AppCompatActivity  {
                 starActivity(LoginActivity.class);
                 break;
             case R.id.btn_refresh:
-                //tabDeliveries.reloadDeliveries(
-                //        helper.Date(horizontalCalendar.getSelectedDate()));
+                if(getDate() != null)
+                    new downloadDelivery().execute(helper.Date(getDate()));
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -106,8 +115,8 @@ public class MainActivity extends AppCompatActivity  {
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Date date, int position) {
-                new downloadDelivery().execute(helper.Date(date));
-                //sendData();
+                setDate(date);
+                new downloadDelivery().execute(helper.Date(getDate()));
             }
         });
     }
