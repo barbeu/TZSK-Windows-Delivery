@@ -75,7 +75,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .build();
 
             RouteApi routeService = restAdapter.create(RouteApi.class);
-            RouteResponse routeResponse = routeService.getRoute(params[0], params[1], true, "ru");
+            RouteResponse routeResponse = routeService.getRoute(params[0], params[1], false, "ru");
+            if(routeResponse.routes.size() == 0) {
+                finish();
+                return null;
+            }
+
             List<LatLng> mPoints = PolyUtil.decode(routeResponse.getPoints());
 
             return mPoints;
@@ -84,6 +89,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         protected void onPostExecute (List<LatLng> result) {
 
+            if(result == null) {
+                helper.message(getApplicationContext(), helper.MSG.ERROR_COORDINATE_ADDRESS, Toast.LENGTH_LONG);
+                return;
+            }
             PolylineOptions line = new PolylineOptions();
             line.width(10f).color(R.color.colorAccent);
             LatLngBounds.Builder latLngBuilder = new LatLngBounds.Builder();

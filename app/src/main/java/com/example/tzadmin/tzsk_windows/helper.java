@@ -3,6 +3,8 @@ package com.example.tzadmin.tzsk_windows;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.InputFilter;
+import android.widget.EditText;
 import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,8 +40,9 @@ public class helper {
     /*enum codes resp server*/
     public static final int CODE_RESP_SERVER_OK = 200;
     public static final int CODE_RESP_SERVER_AUTH_ERROR = 401;
-    public static final int CODE_RESP_SERVER_SERVER_ERROR = 500;
+    public static final int CODE_RESP_SERVER_SERVER_ERROR = 406;
     public static final int CODE_RESP_SERVER_BAD_REQUEST = 400;
+
 
     /*enum http params*/
     public static final int HTTP_PARAM_QUERY = 0;
@@ -61,6 +64,24 @@ public class helper {
     public static String httpServer = "http://192.168.0.251/tzsk_tst/hs/JavaMobileAppDelivery/AnyInquiry/?";
 
     public static void message (Context context, MSG msg, Integer length) {
+        String message = null;
+        message = msg_switch(msg);
+        if(message != null) {
+            Toast toast = Toast.makeText(context, message, length);
+            toast.show();
+        }
+    }
+
+    public static void message (Context context, MSG msg, String param, Integer length) {
+        String message = null;
+        message = msg_switch(msg);
+        if(message != null) {
+            Toast toast = Toast.makeText(context, message + param, length);
+            toast.show();
+        }
+    }
+
+    private static String msg_switch (MSG msg) {
         String message = null;
         switch (msg) {
             case EMPTY_AUTH_DATA:
@@ -87,9 +108,11 @@ public class helper {
             case ERROR_ODMTR_VALUE_NULLABLE:
                 message = "Для окончания работы необходимо ввести значение одометра.";
                 break;
+            case ERROR_SERVER_CODE:
+                message = "Соединение с сервером невозможно. Код Ошибки - ";
+                break;
         }
-        Toast toast = Toast.makeText(context, message, length);
-        toast.show();
+        return message;
     }
 
     /*enum show message*/
@@ -102,6 +125,7 @@ public class helper {
         POWER_SEND_GEODATA,
         ERROR_COORDINATE_ADDRESS,
         ERROR_ODMTR_VALUE_NULLABLE,
+        ERROR_SERVER_CODE
     }
 
     public static boolean InetHasConnection(final Context context) {
@@ -121,15 +145,19 @@ public class helper {
         return false;
     }
 
-    public static String streamToString(InputStream is) throws IOException {
+    public static String streamToString(InputStream is) {
         if(is == null) {
             return null;
         }
         StringBuilder sb = new StringBuilder();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
         String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
+        try {
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return sb.toString();
     }
@@ -168,4 +196,13 @@ public class helper {
     public static int getYear (String date) {
         return Integer.parseInt(date.substring(0,4));
     }
+
+    public static void setFilterEditBox (EditText box, int value) {
+        int maxLength = value;
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(maxLength);
+        box.setFilters(FilterArray);
+    }
+
 }
+

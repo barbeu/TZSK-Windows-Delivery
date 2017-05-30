@@ -3,6 +3,7 @@ package com.example.tzadmin.tzsk_windows;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
@@ -25,6 +27,7 @@ import com.example.tzadmin.tzsk_windows.TabFragments.Tab1Deliveries;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab2Statuses;
 import com.github.kevinsawicki.http.HttpRequest;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
@@ -36,7 +39,6 @@ public class MainActivity extends AppCompatActivity  {
     private ViewPager mViewPager;
     private Tab1Deliveries tabDeliveries;
     private Tab2Statuses tabStatuses;
-    HorizontalCalendar horizontalCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity  {
         MyLocation.SetListener(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        initializeCalendar();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -55,18 +59,12 @@ public class MainActivity extends AppCompatActivity  {
 
         tabDeliveries = new Tab1Deliveries();
         tabStatuses = new Tab2Statuses();
-
-        initializeCalendar();
-
     }
 
     @Override
     public void onStart () {
         super.onStart();
-        new SendPhoto(this);
-        new GlobalData(this);
-        new NoGlobalData(this);
-        horizontalCalendar.selectDate(new Date(), false);
+        sendData();
     }
 
     @Override
@@ -98,21 +96,26 @@ public class MainActivity extends AppCompatActivity  {
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.WEEK_OF_MONTH, -1);
 
-        horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
+        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .startDate(startDate.getTime())
                 .endDate(endDate.getTime())
                 .build();
 
+        horizontalCalendar.selectDate(new Date(), false);
+
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Date date, int position) {
-                //tabDeliveries.reloadDeliveries(helper.Date(date));
-                //tabStatuses.reloadStatuses(
-                        //Database.selectDocIDOnDate(Auth.id, helper.Date(date)
-                        //));
                 new downloadDelivery().execute(helper.Date(date));
+                //sendData();
             }
         });
+    }
+
+    private void sendData () {
+        new SendPhoto(this);
+        new GlobalData(this);
+        new NoGlobalData(this);
     }
 
     private void starActivity (Class _class) {
@@ -160,6 +163,7 @@ public class MainActivity extends AppCompatActivity  {
     class downloadDelivery extends AsyncTask<String, Void, String> {
 
         String dateDelivery;
+        int response = -1;
 
         @Override
         protected void onPreExecute() {
@@ -179,6 +183,9 @@ public class MainActivity extends AppCompatActivity  {
 
             String result = null;
             try {
+                response = HttpRequest.get(helper.httpServer + helper.HTTP_QUERY_AUTH)
+                        .basic(Auth.login, Auth.passwd).code();
+
                 result = helper.streamToString(
                         HttpRequest.post(helper.httpServer + helper.HTTP_QUERY_GETORDERS)
                                 .basic(Auth.login, Auth.passwd)
@@ -194,12 +201,23 @@ public class MainActivity extends AppCompatActivity  {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            if (response != helper.CODE_RESP_SERVER_OK && helper.InetHasConnection(getBaseContext())) {
+                helper.message(getBaseContext(),
+                    helper.MSG.ERROR_SERVER_CODE,
+                    String.valueOf(response),
+                    Toast.LENGTH_LONG);
+            }
+
+            if(!helper.InetHasConnection(getBaseContext()))
+                helper.message(getBaseContext(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
+
             tabDeliveries.refreshDeliveries(result, dateDelivery);
             tabStatuses.reloadStatuses(
                     JSON.parseDocID(result) == null ?
-                            Database.selectDocIDOnDate(Auth.id, dateDelivery) :
-                            JSON.parseDocID(result)
+                        Database.selectDocIDOnDate(Auth.id, dateDelivery) :
+                        JSON.parseDocID(result)
             );
+
             tabDeliveries.progressBar.setVisibility(View.INVISIBLE);
             tabDeliveries.lvMain.setVisibility(View.VISIBLE);
         }

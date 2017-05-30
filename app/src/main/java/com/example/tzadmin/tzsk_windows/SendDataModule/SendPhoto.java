@@ -23,6 +23,9 @@ public class SendPhoto extends SendData {
 
     public SendPhoto(Context context) {
         super(context);
+        ObserverData(
+                Database.selectPhoto(Auth.id)
+        );
     }
 
     @Override

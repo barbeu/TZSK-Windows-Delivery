@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,6 +65,7 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
 
     private void initData () {
         tb_summ = (EditText)findViewById(R.id.tv_delivery_summ);
+        helper.setFilterEditBox(tb_summ, 9);
         tvData = (TextView)findViewById(R.id.tvDeliveryData);
         spinStatus = (Spinner)findViewById(R.id.spinDeliveryStatus);
         spinStatus.setOnItemSelectedListener(this);
@@ -139,10 +142,24 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
     }
 
     private void commit () {
+        if(first_status != delivery.Status) {
+            if(delivery.Status == 2 &&
+                    (Integer.parseInt(delivery.SerialNumber) + 1) <=
+                    Database.selectLastSerialNumberDelivery(Auth.id, delivery.DocID)) {
+
+                //TODO 1 -> поменять статус
+                Database.updateStatusDelivery(delivery.DocID,
+                        Integer.parseInt(delivery.SerialNumber) + 1);
+                //TODO 2 -> добавить в модуль отправки
+                //Database.insertDataChanged(data);
+
+            }
+        }
+
         if(first_status != delivery.Status ||
                 Integer.parseInt(tb_summ.getText().toString()) != delivery.Summ) {
 
-            first_status = delivery.Status;
+                first_status = delivery.Status;
             delivery.Summ = Integer.parseInt(tb_summ.getText().toString());
 
             ChangedData data = new ChangedData();
@@ -174,7 +191,6 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
         alertd.setTitle(title);
         alertd.setMessage(message);
         alertd.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
-
             public void onClick(DialogInterface dialog, int arg1) {
                 sendDataAndFinish();
             }

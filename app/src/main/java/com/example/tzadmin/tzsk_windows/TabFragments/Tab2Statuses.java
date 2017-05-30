@@ -15,12 +15,13 @@ import android.widget.Toast;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.StatusParam;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Switches;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.R;
 import com.example.tzadmin.tzsk_windows.helper;
 import com.github.kevinsawicki.http.HttpRequest;
-
 import java.util.Date;
 
 /**
@@ -40,9 +41,23 @@ public class Tab2Statuses extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab2statuses, container, false);
         progressBar = (ProgressBar) rootView.findViewById(R.id.pb_tab2status);
+        progressBar.setVisibility(View.INVISIBLE);
         initializeComponents(rootView);
-        eventSubscriptionChecked();
         return rootView;
+    }
+
+    public void saveStateSwitches() {
+        if(DocID == null)
+            return;
+        Database.deleteSwitches(Auth.id, DocID);
+        Switches switches = new Switches();
+        switches.idUser = Auth.id;
+        switches.DocID = DocID;
+        switches.getStarted = getStartedSwitch.isChecked() == true ? 1 : 0;
+        switches.finishUnloading = finishUnloadingSwitch.isChecked() == true ? 1 : 0;
+        switches.finishWork = finishWorkSwitch.isChecked() == true ? 1 : 0;
+        switches.valueOdmtr = et_valueOdmtr.getText().toString().equals("") ? "" : et_valueOdmtr.getText().toString();
+        Database.insertSwitches(switches);
     }
 
     private void initializeComponents(View root) {
@@ -50,6 +65,7 @@ public class Tab2Statuses extends Fragment {
         tb_mileage = (TextView) root.findViewById(R.id.tb_status_mileage);
         tb_mileOdmtr = (TextView) root.findViewById(R.id.tb_status_mile_odmtr);
         et_valueOdmtr = (EditText) root.findViewById(R.id.et_status_valueOdmtr);
+        helper.setFilterEditBox(et_valueOdmtr, 9);
         getStartedSwitch = (Switch) root.findViewById(R.id.switch_getStarted);
         finishUnloadingSwitch = (Switch) root.findViewById(R.id.switch_finishUnloading);
         finishWorkSwitch = (Switch) root.findViewById(R.id.switch_finishWork);
@@ -67,12 +83,19 @@ public class Tab2Statuses extends Fragment {
         return data;
     }
 
+    private void eventUnSubscriptionChecked () {
+        getStartedSwitch.setOnCheckedChangeListener(null);
+        finishUnloadingSwitch.setOnCheckedChangeListener(null);
+        finishWorkSwitch.setOnCheckedChangeListener(null);
+    }
+
     private void eventSubscriptionChecked() {
         getStartedSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                if(isChecked) {
                    Database.insertDataChanged(
                            generateChengedData(helper.INDEX_STATUS_GET_STARTED, -1));
+                   saveStateSwitches();
                } else
                    getStartedSwitch.setChecked(true);
             }
@@ -84,6 +107,18 @@ public class Tab2Statuses extends Fragment {
                     if(getStartedSwitch.isChecked()) {
                         Database.insertDataChanged(
                                 generateChengedData(helper.INDEX_STATUS_FINISH_UNLOADING, -1));
+                        saveStateSwitches();
+                        Database.updateStatusDelivery(DocID, 1);
+                        Delivery delivery = Database.selectDelivery(Auth.id, DocID, 1);
+                        ChangedData data = new ChangedData();
+                        data.idUser = Auth.id;
+                        data.isGlobal = 0;
+                        data.SerialNumber = delivery.SerialNumber;
+                        data.DocID = delivery.DocID;
+                        data.Status = delivery.Status;
+                        data.summ = delivery.Summ;
+                        data.Date = delivery.DeliveryDate;
+                        Database.insertDataChanged(data);
                     } else
                         finishUnloadingSwitch.setChecked(false);
                 } else
@@ -101,6 +136,7 @@ public class Tab2Statuses extends Fragment {
                                             helper.INDEX_STATUS_FINISH_WORK,
                                             Integer.parseInt(et_valueOdmtr.getText().toString())
                                     ));
+                            saveStateSwitches();
                         } else {
                             helper.message(getActivity(), helper.MSG.ERROR_ODMTR_VALUE_NULLABLE, Toast.LENGTH_SHORT);
                             finishWorkSwitch.setChecked(false);
@@ -124,18 +160,47 @@ public class Tab2Statuses extends Fragment {
         if (statusParam == null) {
             return;
         }
-        tb_mileage.setText("Text - " + statusParam.AllMileage);
-        tb_odmtr.setText("Text - " + statusParam.AllOdmtr);
-        tb_mileOdmtr.setText("Text - " + (statusParam.AllMileage + statusParam.AllOdmtr));
+
+        tb_mileage.setText("Одометр на начало дня - " + statusParam.AllMileage);
+        tb_odmtr.setText("Километраж - " + statusParam.AllOdmtr);
+        tb_mileOdmtr.setText("Расчетное значение на конец дня - " + (statusParam.AllMileage + statusParam.AllOdmtr));
+    }
+
+    private void defaultValues() {
+        getStartedSwitch.setChecked(false);
+        finishUnloadingSwitch.setChecked(false);
+        finishWorkSwitch.setChecked(false);
+        et_valueOdmtr.setText("");
+        tb_odmtr.setText("");
+        tb_mileage.setText("");
+        tb_mileOdmtr.setText("");
     }
 
     public void reloadStatuses (String DocID) {
-        if(DocID == null) return;
-        if(DocID.toString().equals("")) return;
+        if(DocID == null || DocID.toString().equals("")) {
+            eventUnSubscriptionChecked();
+            defaultValues();
+            return;
+        }
+
         if(!helper.InetHasConnection(getActivity()))
             helper.message(getActivity(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
 
         this.DocID = DocID;
+
+        eventUnSubscriptionChecked();
+
+        Switches switchesState = Database.selectSwitches(Auth.id, DocID);
+        if(switchesState != null) {
+            getStartedSwitch.setChecked(switchesState.getStarted == 1 ? true : false);
+            finishUnloadingSwitch.setChecked(switchesState.finishUnloading == 1 ? true : false);
+            finishWorkSwitch.setChecked(switchesState.finishWork == 1 ? true : false);
+            et_valueOdmtr.setText(switchesState.valueOdmtr);
+        } else
+            defaultValues();
+
+        eventSubscriptionChecked();
+
         new downloadStatuses().execute();
     }
 

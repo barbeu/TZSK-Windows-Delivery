@@ -8,6 +8,7 @@ import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedDat
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.StatusParam;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Switches;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.User;
 import com.example.tzadmin.tzsk_windows.helper;
 import java.util.ArrayList;
@@ -56,6 +57,19 @@ public class Database {
         });
     }
 
+    public static int selectLastSerialNumberDelivery (int user_id, String DocID) {
+        Cursor cursor = db.rawQuery(
+                "SELECT max(SerialNumber) FROM tbDeliveries WHERE idUser = "
+                        + user_id + " AND DocID = ?", new String[] { DocID }
+        );
+        if(cursor.getCount() == 0)
+            return -1;
+        else {
+            cursor.moveToNext();
+            return cursor.getInt(0);
+        }
+    }
+
     public static void deleteDeliveries() {
         db.delete("tbDeliveries", null, null);
     }
@@ -88,6 +102,39 @@ public class Database {
             return null;
         }
 
+    }
+
+    public static Delivery selectDelivery (int user_id, String DocID, int SerialNumber) {
+        Cursor cursor = db.query(
+                "tbDeliveries",
+                null,
+                "idUser=" + user_id + " AND DocID = ? AND SerialNumber =" + SerialNumber,
+                new String[] { DocID },
+                null, null, null, null);
+        Delivery delivery = new Delivery();
+        if(cursor.moveToFirst()) {
+            delivery.id = cursor.getInt(0);
+            delivery.idUser = cursor.getInt(1);
+            delivery.DeliveryDate = cursor.getString(2);
+            delivery.day = cursor.getInt(3);
+            delivery.month = cursor.getInt(4);
+            delivery.year = cursor.getInt(5);
+            delivery.DocID = cursor.getString(6);
+            delivery.SerialNumber = cursor.getString(7);
+            delivery.Client = cursor.getString(8);
+            delivery.Address = cursor.getString(9);
+            delivery.ContactDetails = cursor.getString(10);
+            delivery.NumberOfProducts = cursor.getString(11);
+            delivery.Task = cursor.getString(12);
+            delivery.Mileage = cursor.getString(13);
+            delivery.Status = cursor.getInt(14);
+            delivery.Summ = cursor.getInt(15);
+            delivery.lati = cursor.getString(16);
+            delivery.longi = cursor.getString(17);
+            return delivery;
+        } else {
+            return null;
+        }
     }
 
     @Nullable
@@ -205,6 +252,15 @@ public class Database {
         db.insert("tbChangedStatus", null, cv);
     }
 
+    public static void updateStatusDelivery(String DocID, int index) {
+        ContentValues cv = new ContentValues();
+        cv.put("ChangedData", 1/*В работе*/);
+        db.update("tbDeliveries", cv, "DocID = ? AND SerialNumber = ?", new String[] {
+                DocID,
+                String.valueOf(index)
+        });
+    }
+
     @Nullable
     public static ArrayList<ChangedData> selectDataChanged (int user_id, int isGlobal) {
         Cursor cursor = db.query(
@@ -313,9 +369,56 @@ public class Database {
     }
 
     public static void deleteStatusParam (int user_id, String DocID) {
+        if(DocID == null)
+            return;
         db.delete(
                 "tbStatusParam",
-                "idUser =" + user_id + " AND" + DocID,
+                "idUser =" + user_id + " AND DocID = ?",
+                new String[] { DocID }
+        );
+    }
+
+    public static void insertSwitches (Switches switches) {
+        if(switches == null)
+            return;
+        ContentValues cv = new ContentValues();
+        cv.put("idUser", switches.idUser);
+        cv.put("DocID", switches.DocID);
+        cv.put("getStarted", switches.getStarted);
+        cv.put("finishUnloading", switches.finishUnloading);
+        cv.put("finishWork", switches.finishWork);
+        cv.put("valueOdmtr", switches.valueOdmtr);
+        db.insert("tbSwitches", null, cv);
+    }
+
+    @Nullable
+    public static Switches selectSwitches (int user_id, String DocID) {
+        Cursor cursor = db.query("tbSwitches",
+                null,
+                "idUser = " + user_id + " AND DocID = ?",
+                new String[] { DocID },
+                null, null, null, null);
+        if (cursor.moveToFirst()) {
+            Switches switches = new Switches();
+            switches.id = cursor.getInt(0);
+            switches.idUser = cursor.getInt(1);
+            switches.DocID = cursor.getString(2);
+            switches.getStarted = cursor.getInt(3);
+            switches.finishUnloading = cursor.getInt(4);
+            switches.finishWork = cursor.getInt(5);
+            switches.valueOdmtr = cursor.getString(6);
+            return switches;
+        }
+        else
+            return null;
+    }
+
+    public static void deleteSwitches (int user_id, String DocID) {
+        if(DocID == null)
+            return;
+        db.delete(
+                "tbSwitches",
+                "idUser =" + user_id + " AND DocID =?",
                 new String[] { DocID }
         );
     }

@@ -65,6 +65,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "DocID text,"
                 + "AllMileage integer,"
                 + "AllOdmtr integer" + ");");
+
+        db.execSQL("create table tbSwitches ("
+                + "id integer primary key autoincrement,"
+                + "idUser integer,"
+                + "DocID text,"
+                + "getStarted integer,"
+                + "finishUnloading integer,"
+                + "finishWork integer,"
+                + "valueOdmtr" + ");");
     }
 
     @Override

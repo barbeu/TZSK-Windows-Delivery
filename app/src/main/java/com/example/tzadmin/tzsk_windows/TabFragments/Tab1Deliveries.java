@@ -1,7 +1,6 @@
 package com.example.tzadmin.tzsk_windows.TabFragments;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.CustomListView.BoxAdapter;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
@@ -19,8 +17,6 @@ import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DeliveriesActivity;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.R;
-import com.example.tzadmin.tzsk_windows.helper;
-import com.github.kevinsawicki.http.HttpRequest;
 import java.util.ArrayList;
 
 /**
@@ -52,16 +48,6 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         intent.putExtra("id", idDelivery);
         startActivity(intent);
     }
-
-    /*public void reloadDeliveries(String date) {
-        if(date == null) return;
-        if(date.equals("")) return;
-        if(!helper.InetHasConnection(getActivity()))
-            helper.message(getActivity(), helper.MSG.INTERNET_NOT_CONNECTING, Toast.LENGTH_LONG);
-
-        dateDelivery = date;
-        new downloadDelivery().execute();
-    }*/
 
     public void refreshDeliveries (String jsonStringDeliveries, String dateDelivery) {
         deliveries = JSON.parseDeliveries(jsonStringDeliveries);
