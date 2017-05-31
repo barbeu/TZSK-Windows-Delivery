@@ -1,11 +1,13 @@
 package com.example.tzadmin.tzsk_windows.TabFragments;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -30,12 +32,17 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
     View rootView;
     public ProgressBar progressBar;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.tab1deliveries, container, false);
         progressBar = (ProgressBar) rootView.findViewById(R.id.pb_tab1deliv);
         lvMain = (ListView) rootView.findViewById(R.id.lvMain);
         lvMain.setOnItemClickListener(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            lvMain.setNestedScrollingEnabled(true);
+        }
 
         return rootView;
     }

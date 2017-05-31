@@ -1,6 +1,7 @@
 package com.example.tzadmin.tzsk_windows.TabFragments;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +45,12 @@ public class Tab2Statuses extends Fragment {
         progressBar = (ProgressBar) rootView.findViewById(R.id.pb_tab2status);
         progressBar.setVisibility(View.INVISIBLE);
         initializeComponents(rootView);
+
+        ScrollView scrollView = (ScrollView) rootView.findViewById(R.id.ScrollStatus);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            scrollView.setNestedScrollingEnabled(true);
+        } 
+
         return rootView;
     }
 
