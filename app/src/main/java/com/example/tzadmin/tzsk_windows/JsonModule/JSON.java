@@ -171,6 +171,7 @@ public class JSON {
         try {
             for (Photo photo : photos) {
                 jsonArray.put(photo.DocID + "&" + photo.SerialNumber);
+                jsonArray.put(photo.date);
             }
             dataJsonObj.put("arrayOfKey", jsonArray);
         } catch (JSONException e) {

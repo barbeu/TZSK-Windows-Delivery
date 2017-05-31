@@ -12,6 +12,7 @@ import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseHelper;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
 import java.io.File;
+import java.util.Date;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -47,6 +48,7 @@ public class CameraActivity extends AppCompatActivity {
                     photo.DocID = delivery.DocID;
                     photo.SerialNumber = delivery.SerialNumber;
                     photo.idUser = Auth.id;
+                    photo.date = helper.Date(new Date());
                     Database.insertPhoto(photo);
                     finish();
                     return;

@@ -57,6 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "idUser integer,"
                 + "DocID text,"
                 + "SerialNumber text,"
+                + "date text,"
                 + "PathPhoto text" + ");");
 
         db.execSQL("create table tbStatusParam ("

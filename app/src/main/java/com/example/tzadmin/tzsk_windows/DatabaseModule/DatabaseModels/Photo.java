@@ -10,4 +10,5 @@ public class Photo {
     public String DocID;
     public String SerialNumber;
     public String path;
+    public String date;
 }
