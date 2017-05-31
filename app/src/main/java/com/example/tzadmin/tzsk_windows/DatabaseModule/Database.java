@@ -57,6 +57,27 @@ public class Database {
         });
     }
 
+    public static boolean isTryStatusChanged (int user_id, String date) {
+        Cursor cursor = db.query("tbDeliveries", null,
+                "idUser = " + user_id +
+                        " AND day =" + helper.getDay(date) +
+                        " AND month =" + helper.getMonth(date) +
+                        " AND year =" + helper.getYear(date),
+                null, null, null, null, null);
+        int count_status_try = 0;
+        if (cursor.moveToFirst()) {
+            do {
+               int status = cursor.getInt(cursor.getColumnIndex("ChangedData"));
+                if(status == 1)
+                    count_status_try++;
+            } while (cursor.moveToNext());
+        }
+        if(count_status_try > 0)
+            return false;
+        else
+            return true;
+    }
+
     public static int selectLastSerialNumberDelivery (int user_id, String DocID) {
         Cursor cursor = db.rawQuery(
                 "SELECT max(SerialNumber) FROM tbDeliveries WHERE idUser = "

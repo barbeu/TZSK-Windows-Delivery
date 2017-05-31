@@ -142,26 +142,11 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
     }
 
     private void commit () {
-        if(first_status != delivery.Status) {
-            if(delivery.Status == 2 &&
-                    (Integer.parseInt(delivery.SerialNumber) + 1) <=
-                    Database.selectLastSerialNumberDelivery(Auth.id, delivery.DocID)) {
-
-                //TODO 1 -> поменять статус
-                Database.updateStatusDelivery(delivery.DocID,
-                        Integer.parseInt(delivery.SerialNumber) + 1);
-                //TODO 2 -> добавить в модуль отправки
-                //Database.insertDataChanged(data);
-
-            }
-        }
-
         if(first_status != delivery.Status ||
                 Integer.parseInt(tb_summ.getText().toString()) != delivery.Summ) {
 
-                first_status = delivery.Status;
             delivery.Summ = Integer.parseInt(tb_summ.getText().toString());
-
+            //Changed status delivery
             ChangedData data = new ChangedData();
             data.idUser = Auth.id;
             data.isGlobal = 0;
@@ -172,6 +157,31 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
             data.Date = helper.Date();
             Database.insertDataChanged(data);
             Database.updateDelivery(delivery);
+
+            //If status changed 2 -> status changed 1 next delivery
+            if(first_status != delivery.Status) {
+                if(delivery.Status == 2 &&
+                        (Integer.parseInt(delivery.SerialNumber) + 1) <=
+                                Database.selectLastSerialNumberDelivery(Auth.id, delivery.DocID)) {
+
+                    Delivery deliveryNext = Database.selectDelivery(Auth.id, delivery.DocID, (Integer.parseInt(delivery.SerialNumber) + 1));
+                    if(deliveryNext.Status == 0 && Database.isTryStatusChanged(Auth.id, delivery.DeliveryDate)) {
+                        Database.updateStatusDelivery(delivery.DocID,
+                                Integer.parseInt(delivery.SerialNumber) + 1);
+                        ChangedData data1 = new ChangedData();
+                        data1.idUser = Auth.id;
+                        data1.isGlobal = 0;
+                        data1.SerialNumber = deliveryNext.SerialNumber;
+                        data1.DocID = deliveryNext.DocID;
+                        data1.Status = 1;
+                        data1.summ = deliveryNext.Summ;
+                        data1.Date = helper.Date();
+                        Database.insertDataChanged(data1);
+                    }
+                }
+            }
+
+            first_status = delivery.Status;
         }
     }
 
