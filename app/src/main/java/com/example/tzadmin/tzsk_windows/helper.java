@@ -103,13 +103,16 @@ public class helper {
                 message = "Включите передачу геоданных";
                 break;
             case ERROR_COORDINATE_ADDRESS:
-                message = "Неправильный адрес доставки.";
+                message = "Неправильный адрес доставки";
                 break;
             case ERROR_ODMTR_VALUE_NULLABLE:
-                message = "Для окончания работы необходимо ввести значение одометра.";
+                message = "Для окончания работы необходимо ввести значение одометра";
                 break;
             case ERROR_SERVER_CODE:
                 message = "Соединение с сервером невозможно. Код Ошибки - ";
+                break;
+            case ERROR_DELIVERY_NOT_MET:
+                message = "Не все доставки выполнены";
                 break;
         }
         return message;
@@ -125,7 +128,8 @@ public class helper {
         POWER_SEND_GEODATA,
         ERROR_COORDINATE_ADDRESS,
         ERROR_ODMTR_VALUE_NULLABLE,
-        ERROR_SERVER_CODE
+        ERROR_SERVER_CODE,
+        ERROR_DELIVERY_NOT_MET
     }
 
     public static boolean InetHasConnection(final Context context) {

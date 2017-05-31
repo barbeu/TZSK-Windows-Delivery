@@ -12,6 +12,7 @@ import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Switches;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.User;
 import com.example.tzadmin.tzsk_windows.helper;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tzadmin on 13.04.17.
@@ -166,6 +167,42 @@ public class Database {
                         " AND month =" + helper.getMonth(date) +
                         " AND year =" + helper.getYear(date),
                 null, null, null, null, null);
+        ArrayList<Delivery> deliveries = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Delivery delivery = new Delivery();
+                delivery.id = cursor.getInt(0);
+                delivery.idUser = cursor.getInt(1);
+                delivery.DeliveryDate = cursor.getString(2);
+                delivery.day = cursor.getInt(3);
+                delivery.month = cursor.getInt(4);
+                delivery.year = cursor.getInt(5);
+                delivery.DocID = cursor.getString(6);
+                delivery.SerialNumber = cursor.getString(7);
+                delivery.Client = cursor.getString(8);
+                delivery.Address = cursor.getString(9);
+                delivery.ContactDetails = cursor.getString(10);
+                delivery.NumberOfProducts = cursor.getString(11);
+                delivery.Task = cursor.getString(12);
+                delivery.Mileage = cursor.getString(13);
+                delivery.Status = cursor.getInt(14);
+                delivery.Summ = cursor.getInt(15);
+                delivery.lati = cursor.getString(16);
+                delivery.longi = cursor.getString(17);
+                deliveries.add(delivery);
+            } while (cursor.moveToNext());
+            return deliveries;
+        }
+        else
+            return null;
+    }
+
+    @Nullable
+    public static ArrayList<Delivery> selectDeliveriesByDocID(int user_id, String DocID) {
+        Cursor cursor = db.query("tbDeliveries", null,
+                "idUser = " + user_id + " AND DocID = ?",
+                new String[] { DocID },
+                null, null, null, null);
         ArrayList<Delivery> deliveries = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -444,5 +481,21 @@ public class Database {
                 "idUser =" + user_id + " AND DocID =?",
                 new String[] { DocID }
         );
+    }
+
+    public static boolean isAllDeliveryMeat (int user_id, String DocID) {
+        List<Delivery> deliveries = selectDeliveriesByDocID(user_id, DocID);
+
+        int count_statuses_not_meat = 0;
+
+        for (Delivery delivery : deliveries) {
+            if(delivery.Status == 0 || delivery.Status == 1 || delivery.Status == 4)
+                count_statuses_not_meat ++;
+        }
+
+        if(count_statuses_not_meat > 0)
+            return false;
+        else
+            return true;
     }
 }

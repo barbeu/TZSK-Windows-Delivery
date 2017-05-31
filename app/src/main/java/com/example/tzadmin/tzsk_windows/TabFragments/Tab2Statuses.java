@@ -49,7 +49,7 @@ public class Tab2Statuses extends Fragment {
         ScrollView scrollView = (ScrollView) rootView.findViewById(R.id.ScrollStatus);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             scrollView.setNestedScrollingEnabled(true);
-        } 
+        }
 
         return rootView;
     }
@@ -139,12 +139,17 @@ public class Tab2Statuses extends Fragment {
                 if(isChecked) {
                     if(finishUnloadingSwitch.isChecked()) {
                         if (!et_valueOdmtr.getText().toString().equals("")) {
-                            Database.insertDataChanged(
-                                    generateChengedData(
-                                            helper.INDEX_STATUS_FINISH_WORK,
-                                            Integer.parseInt(et_valueOdmtr.getText().toString())
-                                    ));
-                            saveStateSwitches();
+                            if(Database.isAllDeliveryMeat(Auth.id, DocID)) {
+                                Database.insertDataChanged(
+                                        generateChengedData(
+                                                helper.INDEX_STATUS_FINISH_WORK,
+                                                Integer.parseInt(et_valueOdmtr.getText().toString())
+                                        ));
+                                saveStateSwitches();
+                            } else {
+                                helper.message(getActivity(), helper.MSG.ERROR_DELIVERY_NOT_MET, Toast.LENGTH_SHORT);
+                                finishWorkSwitch.setChecked(false);
+                            }
                         } else {
                             helper.message(getActivity(), helper.MSG.ERROR_ODMTR_VALUE_NULLABLE, Toast.LENGTH_SHORT);
                             finishWorkSwitch.setChecked(false);
