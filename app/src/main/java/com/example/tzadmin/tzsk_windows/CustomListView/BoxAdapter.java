@@ -6,14 +6,18 @@ package com.example.tzadmin.tzsk_windows.CustomListView;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.R;
+import com.example.tzadmin.tzsk_windows.helper;
 
 public class BoxAdapter extends BaseAdapter {
     Context ctx;
@@ -52,7 +56,27 @@ public class BoxAdapter extends BaseAdapter {
         Delivery p = getProduct(position);
 
         ((TextView) view.findViewById(R.id.delivery_client)).setText(p.Client);
-        ((TextView) view.findViewById(R.id.delivery_serialNumber)).setText(p.SerialNumber);
+
+        int mipmap = 0;
+        switch (p.Status) {
+            case helper.INDEX_STATUS_NEW:
+                mipmap = R.drawable.ic_delivery_status_new;
+                break;
+            case helper.INDEX_STATUS_PROCESS:
+                mipmap = R.drawable.ic_delivery_status_work;
+                break;
+            case helper.INDEX_STATUS_COMPLETED:
+                mipmap = R.drawable.ic_delivery_status_completed;
+                break;
+            case helper.INDEX_STATUS_CANCEL:
+                mipmap = R.drawable.ic_delivery_status_cancel;
+                break;
+            case helper.INDEX_STATUS_WAITING:
+                mipmap = R.drawable.ic_delivery_status_pause;
+                break;
+        }
+
+        ((ImageView) view.findViewById(R.id.delivery_status_image)).setImageResource(mipmap);
         ((TextView) view.findViewById(R.id.delivery_mileage)).setText(p.Mileage + " км.");
 
         return view;

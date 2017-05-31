@@ -187,6 +187,7 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
 
     private void sendDataAndFinish() {
         commit();
+        setResult(RESULT_OK, null);
         finish();
     }
 

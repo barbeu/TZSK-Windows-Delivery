@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity  {
     private Tab1Deliveries tabDeliveries;
     private Tab2Statuses tabStatuses;
     private Date date = null;
-
+    private HorizontalCalendar horizontalCalendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public void onStart () {
         super.onStart();
+
+        setDefaultDateCalendar();
         sendData();
     }
 
@@ -105,12 +107,10 @@ public class MainActivity extends AppCompatActivity  {
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.WEEK_OF_MONTH, -1);
 
-        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
+        horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .startDate(startDate.getTime())
                 .endDate(endDate.getTime())
                 .build();
-
-        horizontalCalendar.selectDate(new Date(), false);
 
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
@@ -130,6 +130,18 @@ public class MainActivity extends AppCompatActivity  {
     private void starActivity (Class _class) {
         startActivity(new Intent(this, _class));
         finish();
+    }
+
+    private void setDefaultDateCalendar () {
+        if(date == null)
+            date = new Date();
+        horizontalCalendar.selectDate(date, true);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(getDate() != null)
+            new downloadDelivery().execute(helper.Date(getDate()));
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

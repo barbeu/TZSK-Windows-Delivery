@@ -51,7 +51,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
         int idDelivery = delivery.id;
         Intent intent = new Intent(getActivity(), DeliveriesActivity.class);
         intent.putExtra("id", idDelivery);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     public void refreshDeliveries (String jsonStringDeliveries, String dateDelivery) {

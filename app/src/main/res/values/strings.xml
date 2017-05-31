@@ -2,10 +2,7 @@
     <string name="app_name">ТЗСК Доставка</string>
 
     <!--Login Activity-->
-    <string name="title_activity_login">Авторизация</string>
     <string name="btn_login">Войти</string>
-    <string name="tb_login">Логин</string>
-    <string name="tb_password">Пароль</string>
 
     <!--Main Activity-->
     <string name="btn_main_exit">Выйти</string>

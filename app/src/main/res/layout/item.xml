@@ -19,8 +19,8 @@
             android:orientation="horizontal"
             android:weightSum="1">
 
-            <TextView
-                android:id="@+id/delivery_serialNumber"
+            <ImageView
+                android:id="@+id/delivery_status_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -29,7 +29,7 @@
                 android:layout_marginTop="8dp"
                 android:text=""
                 android:textColor="@color/colorBlackStar"
-                android:textSize="20sp"></TextView>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/delivery_client"
@@ -41,7 +41,7 @@
                 android:layout_marginTop="5dp"
                 android:text=""
                 android:textAlignment="gravity"
-                android:textSize="17sp"></TextView>
+                android:textSize="17sp"/>
         </LinearLayout>
 
         <TextView
@@ -54,6 +54,6 @@
             android:layout_marginTop="8dp"
             android:gravity="right"
             android:textColor="@color/colorAccent"
-            android:textSize="13sp"></TextView>
+            android:textSize="13sp"/>
     </LinearLayout>
 </LinearLayout>
