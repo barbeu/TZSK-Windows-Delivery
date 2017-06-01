@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
+
+import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
@@ -44,6 +46,7 @@ public class Database {
             cv.put("ChangedData", delivery.Status);
             cv.put("lat", delivery.lati);
             cv.put("long", delivery.longi);
+            cv.put("beginning", delivery.beginning);
             db.insert("tbDeliveries", null, cv);
         }
     }
@@ -69,6 +72,24 @@ public class Database {
         if (cursor.moveToFirst()) {
             do {
                int status = cursor.getInt(cursor.getColumnIndex("ChangedData"));
+                if(status == 1)
+                    count_status_try++;
+            } while (cursor.moveToNext());
+        }
+        if(count_status_try > 0)
+            return false;
+        else
+            return true;
+    }
+
+    public static boolean isTryStatusChangedByDocID (int user_id, String DocID) {
+        Cursor cursor = db.query("tbDeliveries", null,
+                "idUser = " + user_id + " AND DocID =?",
+                new String[] { DocID }, null, null, null, null);
+        int count_status_try = 0;
+        if (cursor.moveToFirst()) {
+            do {
+                int status = cursor.getInt(cursor.getColumnIndex("ChangedData"));
                 if(status == 1)
                     count_status_try++;
             } while (cursor.moveToNext());
@@ -119,6 +140,7 @@ public class Database {
             delivery.Summ = cursor.getInt(15);
             delivery.lati = cursor.getString(16);
             delivery.longi = cursor.getString(17);
+            delivery.beginning = cursor.getInt(18);
             return delivery;
         } else {
             return null;
@@ -153,6 +175,7 @@ public class Database {
             delivery.Summ = cursor.getInt(15);
             delivery.lati = cursor.getString(16);
             delivery.longi = cursor.getString(17);
+            delivery.beginning = cursor.getInt(18);
             return delivery;
         } else {
             return null;
@@ -189,6 +212,7 @@ public class Database {
                 delivery.Summ = cursor.getInt(15);
                 delivery.lati = cursor.getString(16);
                 delivery.longi = cursor.getString(17);
+                delivery.beginning = cursor.getInt(18);
                 deliveries.add(delivery);
             } while (cursor.moveToNext());
             return deliveries;
@@ -225,6 +249,7 @@ public class Database {
                 delivery.Summ = cursor.getInt(15);
                 delivery.lati = cursor.getString(16);
                 delivery.longi = cursor.getString(17);
+                delivery.beginning = cursor.getInt(18);
                 deliveries.add(delivery);
             } while (cursor.moveToNext());
             return deliveries;
@@ -310,13 +335,38 @@ public class Database {
         db.insert("tbChangedStatus", null, cv);
     }
 
-    public static void updateStatusDelivery(String DocID, int index) {
+    public static boolean updateStatusDelivery(int user_id, String DocID, int status, int index) {
+        if(index == -1)
+            index = selectFirstStatus(user_id, DocID);
+        if(index == -1)
+            return false;
         ContentValues cv = new ContentValues();
-        cv.put("ChangedData", 1/*В работе*/);
-        db.update("tbDeliveries", cv, "DocID = ? AND SerialNumber = ?", new String[] {
+        cv.put("ChangedData", status);
+        db.update("tbDeliveries", cv, "DocID = ? AND SerialNumber = ? AND idUser = ?", new String[] {
                 DocID,
-                String.valueOf(index)
+                String.valueOf(index),
+                String.valueOf(user_id)
         });
+        return true;
+    }
+
+    public static int selectFirstStatus (int user_id, String DocID) {
+        Cursor cursor = db.query(
+                "tbDeliveries",
+                null,
+                "idUser=" + user_id + " AND DocID = ?",
+                new String[] { DocID },
+                null, null, null, null);
+        if(cursor.moveToFirst()) {
+            do {
+                int status = cursor.getInt(cursor.getColumnIndex("ChangedData"));
+                String number = cursor.getString(cursor.getColumnIndex("SerialNumber"));
+                if (status == helper.INDEX_STATUS_NEW && isTryStatusChangedByDocID(user_id, DocID)) {
+                    return Integer.parseInt(number);
+                }
+            } while (cursor.moveToNext());
+        }
+        return -1;
     }
 
     @Nullable
@@ -445,6 +495,7 @@ public class Database {
         cv.put("idUser", switches.idUser);
         cv.put("DocID", switches.DocID);
         cv.put("getStarted", switches.getStarted);
+        cv.put("startUnloading", switches.startUnloading);
         cv.put("finishUnloading", switches.finishUnloading);
         cv.put("finishWork", switches.finishWork);
         cv.put("valueOdmtr", switches.valueOdmtr);
@@ -464,9 +515,10 @@ public class Database {
             switches.idUser = cursor.getInt(1);
             switches.DocID = cursor.getString(2);
             switches.getStarted = cursor.getInt(3);
-            switches.finishUnloading = cursor.getInt(4);
-            switches.finishWork = cursor.getInt(5);
-            switches.valueOdmtr = cursor.getString(6);
+            switches.startUnloading = cursor.getInt(4);
+            switches.finishUnloading = cursor.getInt(5);
+            switches.finishWork = cursor.getInt(6);
+            switches.valueOdmtr = cursor.getString(7);
             return switches;
         }
         else

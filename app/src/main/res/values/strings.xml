@@ -24,7 +24,8 @@
     <string name="title_activity_maps">Map</string>
 
     <!--Switches -->
-    <string name="switch_getStarted">Начал работу</string>
+    <string name="switch_getStarted">Начал Работу</string>
+    <string name="switch_startUnloading">Начал Загрузку</string>
     <string name="switch_finishUnloading">Закончил Загрузку</string>
     <string name="switch_finishWork">Закончил Работу</string>
     <string name="tb_status_valueOdmtr">Введите Значение Одометра</string>

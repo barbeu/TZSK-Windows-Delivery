@@ -49,6 +49,7 @@ public class JSON {
                 delivery.Summ = order.getInt("Summ");
                 delivery.lati = order.getString("Latitude");
                 delivery.longi = order.getString("Longitude");
+                delivery.beginning = order.getInt("FlightBeginningMark");
                 deliveries.add(delivery);
             }
         } catch (JSONException e) {

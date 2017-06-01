@@ -9,6 +9,7 @@ public class Switches {
     public int idUser;
     public String DocID;
     public int getStarted;
+    public int startUnloading;
     public int finishUnloading;
     public int finishWork;
     public String valueOdmtr;

@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "Summ integer,"
                 + "lat text,"
                 + "long text,"
+                + "beginning int,"
                 + "FOREIGN KEY (idUser) REFERENCES tbUsers(id)" + ");");
 
         db.execSQL("create table tbChangedStatus ("
@@ -72,6 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "idUser integer,"
                 + "DocID text,"
                 + "getStarted integer,"
+                + "startUnloading integer,"
                 + "finishUnloading integer,"
                 + "finishWork integer,"
                 + "valueOdmtr" + ");");

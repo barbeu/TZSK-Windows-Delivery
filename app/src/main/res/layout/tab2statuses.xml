@@ -28,11 +28,20 @@
                 android:layout_centerHorizontal="true"
                 android:layout_weight="0.10" />
 
-            <Switch
+        <Switch
             android:id="@+id/switch_getStarted"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/switch_getStarted"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Switch
+            android:id="@+id/switch_startUnloading"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_startUnloading"
             android:layout_marginTop="10dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />

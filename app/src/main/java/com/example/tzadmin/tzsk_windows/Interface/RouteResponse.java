@@ -1,4 +1,4 @@
-package com.example.tzadmin.tzsk_windows.InterfaceRoute;
+package com.example.tzadmin.tzsk_windows.Interface;
 
 import java.util.List;
 

@@ -8,6 +8,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -166,7 +167,9 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
 
                     Delivery deliveryNext = Database.selectDelivery(Auth.id, delivery.DocID, (Integer.parseInt(delivery.SerialNumber) + 1));
                     if(deliveryNext.Status == 0 && Database.isTryStatusChanged(Auth.id, delivery.DeliveryDate)) {
-                        Database.updateStatusDelivery(delivery.DocID,
+                        Database.updateStatusDelivery(Auth.id,
+                                delivery.DocID,
+                                helper.INDEX_STATUS_PROCESS,
                                 Integer.parseInt(delivery.SerialNumber) + 1);
                         ChangedData data1 = new ChangedData();
                         data1.idUser = Auth.id;
@@ -187,7 +190,12 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
 
     private void sendDataAndFinish() {
         commit();
-        setResult(RESULT_OK, null);
+        if(delivery.Status == helper.INDEX_STATUS_COMPLETED &&
+                delivery.beginning == helper.True) {
+            setResult(helper.ResetSwithes);
+        } else {
+            setResult(RESULT_OK);
+        }
         finish();
     }
 

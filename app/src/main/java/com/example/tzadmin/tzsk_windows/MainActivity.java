@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
+import com.example.tzadmin.tzsk_windows.Interface.onNotificationListener;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.Location.MyLocation;
 import com.example.tzadmin.tzsk_windows.SendDataModule.GlobalData;
@@ -33,7 +34,7 @@ import java.util.Date;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.HorizontalCalendarListener;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements onNotificationListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity  {
     private Tab2Statuses tabStatuses;
     private Date date = null;
     private HorizontalCalendar horizontalCalendar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,8 +142,19 @@ public class MainActivity extends AppCompatActivity  {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(getDate() != null)
-            new downloadDelivery().execute(helper.Date(getDate()));
+        if(resultCode == helper.ResetSwithes) {
+            tabStatuses.eventUnSubscriptionChecked(true);
+            tabStatuses.defaultValues(true);
+            tabStatuses.saveStateSwitches();
+            tabStatuses.eventSubscriptionChecked(true);
+        }
+
+        new downloadDelivery().execute(helper.Date(getDate() == null ? new Date() : getDate()));
+    }
+
+    @Override
+    public void refreshEvent() {
+        new downloadDelivery().execute(helper.Date(getDate() == null ? new Date() : getDate()));
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

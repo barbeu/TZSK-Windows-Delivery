@@ -25,6 +25,12 @@ import java.util.TimeZone;
 
 public class helper {
 
+    /*Result DeliveryActivity*/
+    public static final int ResetSwithes = 351;
+
+    public static final int True = 1;
+    public static final int False = 0;
+
     /*enum position status "Новая", "В работе", "Исполнена", "Отмена", "Ожидание"*/
     public static final int INDEX_STATUS_NEW = 0;
     public static final int INDEX_STATUS_PROCESS = 1;
@@ -34,8 +40,9 @@ public class helper {
 
     /*enum position global status "Начать Работа", "Закончить Разгрузку", "Закончить Работу"*/
     public static final int INDEX_STATUS_GET_STARTED = 0;
-    public static final int INDEX_STATUS_FINISH_UNLOADING = 1;
-    public static final int INDEX_STATUS_FINISH_WORK = 2;
+    public static final int INDEX_STATUS_START_UNLOADING = 1;
+    public static final int INDEX_STATUS_FINISH_UNLOADING = 2;
+    public static final int INDEX_STATUS_FINISH_WORK = 3;
 
     /*enum codes resp server*/
     public static final int CODE_RESP_SERVER_OK = 200;
