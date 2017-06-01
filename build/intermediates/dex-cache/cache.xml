@@ -3,21 +3,21 @@
 
     <item
         is-multidex="false"
-        jar="/home/tzadmin/.android/build-cache/08b30c9f7ead8ab27c1b285f06a8cab5ed4e89fb/output/jars/classes.jar"
+        jar="/home/tzadmin/.android/build-cache/3bf939438996ada18dc21de71fa7e8cbcf8281ad/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="00d3faba5f06a3678467b953f754f6a87f9262ea">
-        <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/pre-dexed/debug/classes_60ebf1f9b2086a841129dcbf06bd90a8c390080e.jar" />
+        sha1="28f17cc6526f19099aef5c298adc6953c616405e">
+        <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/pre-dexed/debug/classes_e22760ecbf63e8feaa5da6d7b2970166cc2e17d5.jar" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/tzadmin/.android/build-cache/08b30c9f7ead8ab27c1b285f06a8cab5ed4e89fb/output/jars/classes.jar"
+        jar="/home/tzadmin/.android/build-cache/3bf939438996ada18dc21de71fa7e8cbcf8281ad/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="00d3faba5f06a3678467b953f754f6a87f9262ea">
-        <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_60ebf1f9b2086a841129dcbf06bd90a8c390080e/classes.dex" />
+        sha1="28f17cc6526f19099aef5c298adc6953c616405e">
+        <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e22760ecbf63e8feaa5da6d7b2970166cc2e17d5/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="a04a6c6e0901ceffaa4665667adaa64fb941b9e6">
+        sha1="9e9db80eaa125972b075d43b55c81fac25aea27c">
         <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_3544263b26a358c783ae08d23c4a204a7c85c36c/classes.dex" />
     </item>
     <item

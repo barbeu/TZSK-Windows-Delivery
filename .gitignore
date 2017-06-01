@@ -1,0 +1,13 @@
+# Lines starting with '#' are considered comments.
+
+# Ignore (generated) html files,
+# *.html
+
+# Ignore (generated) bin files,
+*.bin
+
+# Ignore (generated) lock files,
+*.lock
+
+# Ignore (generated) rawproto files,
+*.rawproto
