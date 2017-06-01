@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements onNotificationLis
     @Override
     public void onStart () {
         super.onStart();
-
         setDefaultDateCalendar();
         sendData();
     }
@@ -135,10 +134,11 @@ public class MainActivity extends AppCompatActivity implements onNotificationLis
     }
 
     private void setDefaultDateCalendar () {
-        if(date == null)
-            date = new Date();
-        horizontalCalendar.selectDate(date, true);
+        if(getDate() == null)
+            setDate(new Date());
+        horizontalCalendar.selectDate(getDate(), false);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

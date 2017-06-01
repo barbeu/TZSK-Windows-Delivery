@@ -416,8 +416,8 @@ public class Database {
         cv.put("idUser", photo.idUser);
         cv.put("DocID", photo.DocID);
         cv.put("SerialNumber", photo.SerialNumber);
-        cv.put("PathPhoto", photo.path);
         cv.put("date", photo.date);
+        cv.put("PathPhoto", photo.path);
         db.insert("tbPhotos", null, cv);
     }
 
@@ -432,8 +432,8 @@ public class Database {
                 photo.idUser = cursor.getInt(1);
                 photo.DocID = cursor.getString(2);
                 photo.SerialNumber = cursor.getString(3);
-                photo.path = cursor.getString(4);
-                photo.date = cursor.getString(5);
+                photo.date = cursor.getString(4);
+                photo.path = cursor.getString(5);
                 photos.add(photo);
             } while (cursor.moveToNext());
             return photos;
