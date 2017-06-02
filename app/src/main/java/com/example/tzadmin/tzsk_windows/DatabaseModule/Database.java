@@ -525,6 +525,22 @@ public class Database {
             return null;
     }
 
+    public static boolean isStartSwitch (int user_id, String DocID) {
+        Cursor cursor = db.query("tbSwitches",
+                null,
+                "idUser = " + user_id + " AND DocID = ?",
+                new String[] { DocID },
+                null, null, null, null);
+        if (cursor.moveToFirst()) {
+            int value = cursor.getInt(cursor.getColumnIndex("getStarted"));
+            if(value == 0)
+                return false;
+            else
+                return true;
+        } else
+            return false;
+    }
+
     public static void deleteSwitches (int user_id, String DocID) {
         if(DocID == null)
             return;

@@ -80,6 +80,12 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinStatus.setAdapter(adapter);
         spinStatus.setSelection(delivery.Status);
+
+        if(!Database.isStartSwitch(Auth.id, delivery.DocID)) {
+            spinStatus.setEnabled(false);
+            tb_summ.setEnabled(false);
+        }
+
         tvData.setText(info);
     }
 
