@@ -2,6 +2,24 @@
 <items version="2" >
 
     <item
+        is-multidex="true"
+        jar="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_db597d7c5a3f28c1cb3578b68c2e0442307fdfbc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/tzadmin/.android/build-cache/62f1141f5d453119f73fa97e490a573a78bf6a26/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="549238d2484b8c2dc849f0c2f6b7ca9506fead4e">
+        <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c7622200c8164f054699ca680bc871ec44f439e6/classes.dex" />
+    </item>
+    <item
         is-multidex="false"
         jar="/home/tzadmin/.android/build-cache/3bf939438996ada18dc21de71fa7e8cbcf8281ad/output/jars/classes.jar"
         jumboMode="false"
@@ -12,30 +30,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/home/tzadmin/.android/build-cache/3bf939438996ada18dc21de71fa7e8cbcf8281ad/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="28f17cc6526f19099aef5c298adc6953c616405e">
-        <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e22760ecbf63e8feaa5da6d7b2970166cc2e17d5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="9e9db80eaa125972b075d43b55c81fac25aea27c">
         <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_3544263b26a358c783ae08d23c4a204a7c85c36c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="/home/tzadmin/AndroidStudioProjects/TZSK-Windows-Delivery/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_db597d7c5a3f28c1cb3578b68c2e0442307fdfbc/classes.dex" />
     </item>
 
 </items>

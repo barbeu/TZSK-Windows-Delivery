@@ -64,7 +64,7 @@ public class Tab1Deliveries extends Fragment implements AdapterView.OnItemClickL
 
         deliveries = Database.selectDeliveries(Auth.id, dateDelivery);
         if (deliveries == null) {
-            tv.setText(Auth.login + " на этот день у вас нет доставок.");
+            tv.setText(Auth.login + " на этот день у вас пока нет доставок.");
             lvMain.setAdapter(null);
             return;
         }
