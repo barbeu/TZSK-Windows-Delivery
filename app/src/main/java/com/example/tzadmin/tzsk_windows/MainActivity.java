@@ -3,7 +3,6 @@ package com.example.tzadmin.tzsk_windows;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
@@ -15,9 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
+import com.example.tzadmin.tzsk_windows.DeleteModule.Delete;
 import com.example.tzadmin.tzsk_windows.Interface.onNotificationListener;
 import com.example.tzadmin.tzsk_windows.JsonModule.JSON;
 import com.example.tzadmin.tzsk_windows.Location.MyLocation;
@@ -27,8 +26,6 @@ import com.example.tzadmin.tzsk_windows.SendDataModule.SendPhoto;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab1Deliveries;
 import com.example.tzadmin.tzsk_windows.TabFragments.Tab2Statuses;
 import com.github.kevinsawicki.http.HttpRequest;
-
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
@@ -77,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements onNotificationLis
         super.onStart();
         setDefaultDateCalendar();
         sendData();
+        new Delete();
     }
 
     @Override
@@ -138,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements onNotificationLis
             setDate(new Date());
         horizontalCalendar.selectDate(getDate(), false);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

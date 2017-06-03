@@ -56,10 +56,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         int idOpt = item.getItemId();
         switch (idOpt) {
             case R.id.btn_setting:
-                if(settingLock++ == 11) {
+                if(settingLock++ == 10) {
                     Intent intet = new Intent(this, SettingActivity.class);
                     startActivity(intet);
-                    finish();
                 }
                 break;
         }

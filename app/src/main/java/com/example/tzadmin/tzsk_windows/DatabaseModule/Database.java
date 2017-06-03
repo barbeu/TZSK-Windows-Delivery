@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.Nullable;
-
-import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
@@ -113,8 +111,15 @@ public class Database {
         }
     }
 
-    public static void deleteDeliveries() {
-        db.delete("tbDeliveries", null, null);
+    public static void deleteDeliveries(int user_id, String date) {
+        db.delete("tbDeliveries",
+                "idUser = ? AND day <= ? AND month <= ? AND year <= ?",
+                new String[] { String.valueOf(user_id),
+                        String.valueOf(helper.getDay(date)),
+                        String.valueOf(helper.getMonth(date)),
+                        String.valueOf(helper.getYear(date)),
+                }
+        );
     }
 
     @Nullable
@@ -301,10 +306,6 @@ public class Database {
         ContentValues cv = new ContentValues();
         cv.put("autoLogin", autoLogin);
         db.update("tbUsers", cv, "id = ?", new String[] { String.valueOf(id) });
-    }
-
-    public static void deleteUser (int id) {
-        db.delete("tbUsers", "id=" + id, null);
     }
 
     @Nullable

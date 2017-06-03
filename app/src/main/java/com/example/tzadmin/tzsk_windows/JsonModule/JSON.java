@@ -6,12 +6,10 @@ import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Photo;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.StatusParam;
 import com.example.tzadmin.tzsk_windows.helper;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by tzadmin on 15.04.17.

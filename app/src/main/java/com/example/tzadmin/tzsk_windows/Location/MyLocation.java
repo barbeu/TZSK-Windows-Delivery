@@ -2,7 +2,6 @@ package com.example.tzadmin.tzsk_windows.Location;
 
 import android.content.Context;
 import android.location.Location;
-
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 

@@ -126,6 +126,7 @@ public class Tab2Statuses extends Fragment {
                         Database.insertDataChanged(
                                 generateChengedData(helper.INDEX_STATUS_GET_STARTED, -1));
                         saveStateSwitches();
+                        NotificationListener.refreshEvent();
                     } else
                         getStartedSwitch.setChecked(true);
                 }
@@ -140,6 +141,7 @@ public class Tab2Statuses extends Fragment {
                         Database.insertDataChanged(
                                 generateChengedData(helper.INDEX_STATUS_START_UNLOADING, -1));
                         saveStateSwitches();
+                        NotificationListener.refreshEvent();
                     } else
                         startUnloading.setChecked(false);
                 } else
@@ -167,7 +169,6 @@ public class Tab2Statuses extends Fragment {
                             data.Date = delivery.DeliveryDate;
                             Database.insertDataChanged(data);
                         }
-
                         NotificationListener.refreshEvent();
                     } else
                         finishUnloadingSwitch.setChecked(false);
@@ -189,6 +190,7 @@ public class Tab2Statuses extends Fragment {
                                                     Integer.parseInt(et_valueOdmtr.getText().toString())
                                             ));
                                     saveStateSwitches();
+                                    NotificationListener.refreshEvent();
                                 } else {
                                     helper.message(getActivity(), helper.MSG.ERROR_DELIVERY_NOT_MET, Toast.LENGTH_SHORT);
                                     finishWorkSwitch.setChecked(false);
