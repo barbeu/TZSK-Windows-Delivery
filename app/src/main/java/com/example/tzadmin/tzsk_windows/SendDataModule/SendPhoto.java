@@ -57,7 +57,6 @@ public class SendPhoto extends SendData {
             catch (Exception ex) {
                 return -1;
             }
-            //request.connectTimeout(5000);
             return request.code();
         }
 

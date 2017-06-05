@@ -122,6 +122,26 @@ public class Database {
         );
     }
 
+    public static ArrayList<String> selectDeliveriesByDel(int user_id, String date) {
+        Cursor cursor = db.query("tbDeliveries", null,
+                "idUser = ? AND day <= ? AND month <= ? AND year <= ?",
+                new String[] { String.valueOf(user_id),
+                        String.valueOf(helper.getDay(date)),
+                        String.valueOf(helper.getMonth(date)),
+                        String.valueOf(helper.getYear(date)),
+                }, null, null, null, null
+        );
+        ArrayList<String> DocIDs = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                DocIDs.add( cursor.getString(cursor.getColumnIndex("DocID")));
+            } while (cursor.moveToNext());
+            return DocIDs;
+        }
+        else
+            return null;
+    }
+
     @Nullable
     public static Delivery selectDelivery (int id, int user_id) {
         Cursor cursor = db.query("tbDeliveries", null, "id=" + id + " AND idUser=" + user_id, null, null, null, null, null);

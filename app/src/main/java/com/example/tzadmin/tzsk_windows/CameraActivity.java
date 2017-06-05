@@ -42,7 +42,6 @@ public class CameraActivity extends AppCompatActivity {
         if (requestCode == CODE_PHOTO) {
             if (resultCode == RESULT_OK) {
                 if (intent == null) {
-                    //Add photo to database
                     Photo photo = new Photo();
                     photo.path = pathPhoto;
                     photo.DocID = delivery.DocID;
@@ -58,10 +57,9 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private Uri generateFileUri() {
-        File file = null;
         pathPhoto = directory.getPath() + "/" + delivery.DocID +
                 "_" + System.currentTimeMillis() + ".jpg";
-        file = new File(pathPhoto);
+        File file = new File(pathPhoto);
         return Uri.fromFile(file);
     }
 

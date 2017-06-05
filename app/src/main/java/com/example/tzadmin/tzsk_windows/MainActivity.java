@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements onNotificationLis
         endDate.add(Calendar.WEEK_OF_MONTH, 2);
 
         Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.WEEK_OF_MONTH, -1);
+        startDate.add(Calendar.WEEK_OF_MONTH, -2);
 
         horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .startDate(startDate.getTime())
