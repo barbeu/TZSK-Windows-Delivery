@@ -14,27 +14,34 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.tzadmin.tzsk_windows.AuthModule.Auth;
+import com.example.tzadmin.tzsk_windows.CustomListView.BoxAdapter;
+import com.example.tzadmin.tzsk_windows.CustomListView.InfoAdapter;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.Database;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseHelper;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.ChangedData;
 import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.Delivery;
+import com.example.tzadmin.tzsk_windows.DatabaseModule.DatabaseModels.DeliveryInfo;
 import com.example.tzadmin.tzsk_windows.Location.MyLocation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeliveriesActivity extends AppCompatActivity implements OnItemSelectedListener {
 
     Delivery delivery;
-    TextView tvData;
+    ListView lv_DeliveryInfo;
     Spinner spinStatus;
     String[] status = {"Новая", "В работе", "Исполнена", "Отмена", "Ожидание"};
     int first_status;
     AlertDialog.Builder alertd;
     Context context;
     EditText tb_summ;
-
+    InfoAdapter infoAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,19 +68,47 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
         }
     }
 
+    private ArrayList<DeliveryInfo> generateKeyValueDeliveryInfo() {
+        ArrayList<DeliveryInfo> items = new ArrayList<>();
+
+        DeliveryInfo info1 = new DeliveryInfo();
+        info1.header = "Доставка"; info1.body = delivery.DeliveryDate.substring(0,10);
+        items.add(info1);
+
+        DeliveryInfo info2 = new DeliveryInfo();
+        info2.header = "Адрес";    info2.body = delivery.Address;
+        items.add(info2);
+
+        DeliveryInfo info3 = new DeliveryInfo();
+        info3.header = "Клиент";   info3.body = delivery.Client;
+        items.add(info3);
+
+        DeliveryInfo info4 = new DeliveryInfo();
+        info4.header = "Заметка";  info4.body = delivery.ContactDetails;
+        items.add(info4);
+
+        DeliveryInfo info5 = new DeliveryInfo();
+        info5.header = "Задание";  info5.body = delivery.Task;
+        items.add(info5);
+
+        DeliveryInfo info6 = new DeliveryInfo();
+        info6.header = "Изделия";  info6.body = delivery.NumberOfProducts;
+        items.add(info6);
+        return items;
+    }
+
     private void initData () {
+        lv_DeliveryInfo = (ListView)findViewById(R.id.lv_delivery);
         tb_summ = (EditText)findViewById(R.id.tv_delivery_summ);
         helper.setFilterEditBox(tb_summ, 9);
-        tvData = (TextView)findViewById(R.id.tvDeliveryData);
         spinStatus = (Spinner)findViewById(R.id.spinDeliveryStatus);
         spinStatus.setOnItemSelectedListener(this);
-        String date = delivery.DeliveryDate;
-        String info = "Доставка на " + date.substring(0,10) + "\n\n" +
-                delivery.Client + "\n\n" + delivery.Address + "\n\n" +
-                delivery.ContactDetails + "\n\n" + "Задание: " + delivery.Task +
-                "\n\n";
         tb_summ.setText(String.valueOf(delivery.Summ));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, status);
+
+        infoAdapter = new InfoAdapter(this, generateKeyValueDeliveryInfo());
+        lv_DeliveryInfo.setAdapter(infoAdapter);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, status);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinStatus.setAdapter(adapter);
         spinStatus.setSelection(delivery.Status);
@@ -82,8 +117,6 @@ public class DeliveriesActivity extends AppCompatActivity implements OnItemSelec
             spinStatus.setEnabled(false);
             tb_summ.setEnabled(false);
         }
-
-        tvData.setText(info);
     }
 
     @Override
